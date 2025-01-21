@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-// Debounce helper function
+// Custom hook for debouncing values (reduces API calls while typing)
 function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -18,20 +18,24 @@ function useDebounce(value, delay) {
 }
 
 function App() {
+  // State management for the converter
   const [amount, setAmount] = useState(1);
   const [fromCur, setFromCur] = useState("EUR");
   const [toCur, setToCur] = useState("USD");
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Debounce the amount to prevent excessive API calls
   const debouncedAmount = useDebounce(amount, 500);
 
+  // Function to swap the selected currencies
   const swapCurrencies = () => {
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
   };
 
+  // Effect hook for currency conversion
   useEffect(() => {
     const convert = async () => {
       if (fromCur === toCur) return;
@@ -55,17 +59,19 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur]);
 
-  // Background images for each currency
+  // Background images for different currencies
   const currencyBackgroundImages = {
-    USD: "url('/images/us-flag.jpg')", // US Flag
-    EUR: "url('/images/europe-flag.jpg')", // Europe Flag
-    BRL: "url('/images/brazil-flag.jpg')", // Brazil Flag
-    CAD: "url('/images/canada-flag.jpg')", // Canada Flag
-    INR: "url('/images/india-flag.jpg')", // India Flag
-    DEFAULT: "url('/images/default-flag.jpg')" // Default flag image
+    USD: "url('/images/us-flag.jpg')",
+    EUR: "url('/images/europe-flag.jpg')",
+    BRL: "url('/images/brazil-flag.jpg')",
+    CAD: "url('/images/canada-flag.jpg')",
+    INR: "url('/images/india-flag.jpg')",
+    DEFAULT: "url('/images/default-flag.jpg')"
   };
 
   return (
+    // Main container with background
+    // Responsive: Full height screen with centered content and padding
     <div
       className="min-h-screen flex items-center justify-center bg-gray-100 p-4 relative"
       style={{
@@ -75,13 +81,16 @@ function App() {
         backgroundPosition: "center",
       }}
     >
-      {/* Card Container */}
-      <div className="relative bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
-        <h1 className="text-2xl font-bold text-center mb-6">
+      {/* Card container */}
+      {/* Responsive: Padding increases with screen size, full width on mobile with max-width */}
+      <div className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto">
+        {/* Title */}
+        {/* Responsive: Font size and margin increase on larger screens */}
+        <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">
           Currency Converter
         </h1>
 
-        {/* Input Section */}
+        {/* Amount input section */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-medium mb-2">
             Amount
@@ -95,9 +104,12 @@ function App() {
           />
         </div>
 
-        {/* Currency Selection and Swap */}
-        <div className="flex gap-4 items-center mb-6">
-          <div className="flex-1">
+        {/* Currency selection and swap section */}
+        {/* Responsive: Vertical on mobile, horizontal on larger screens */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center mb-6">
+          {/* From currency select */}
+          {/* Responsive: Full width on mobile, flex on larger screens */}
+          <div className="w-full sm:flex-1">
             <label className="block text-gray-700 text-sm font-medium mb-2">
               From
             </label>
@@ -115,17 +127,20 @@ function App() {
             </select>
           </div>
 
-          {/* Redesigned Swap Button */}
+          {/* Swap button */}
+          {/* Responsive: Full width on mobile, auto width on larger screens */}
           <button
             onClick={swapCurrencies}
             disabled={isLoading}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-blue-300 disabled:cursor-not-allowed"
             title="Swap currencies"
           >
             🔄 Swap
           </button>
 
-          <div className="flex-1">
+          {/* To currency select */}
+          {/* Responsive: Full width on mobile, flex on larger screens */}
+          <div className="w-full sm:flex-1">
             <label className="block text-gray-700 text-sm font-medium mb-2">
               To
             </label>
@@ -144,10 +159,12 @@ function App() {
           </div>
         </div>
 
-        {/* Converted Amount */}
-        <div className="p-4 bg-gray-100 rounded-lg shadow-inner text-center">
+        {/* Converted amount display */}
+        {/* Responsive: Smaller padding on mobile, larger on desktop */}
+        <div className="p-3 sm:p-4 bg-gray-100 rounded-lg shadow-inner text-center">
           <p className="text-gray-600 text-sm">Converted Amount</p>
-          <p className="text-xl font-semibold text-gray-800">
+          {/* Responsive: Font size increases on larger screens */}
+          <p className="text-lg sm:text-xl font-semibold text-gray-800">
             {isLoading
               ? "Converting..."
               : fromCur === toCur
@@ -156,11 +173,15 @@ function App() {
           </p>
         </div>
 
-        {/* Disclaimer and Footer */}
-        <p className="text-center text-sm text-gray-500 mt-4">
+        {/* Disclaimer */}
+        {/* Responsive: Smaller text and margins on mobile */}
+        <p className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
           Exchange rates may vary and are provided by external services.
         </p>
-        <footer className="mt-6 text-center text-sm text-gray-700">
+
+        {/* Footer */}
+        {/* Responsive: Smaller text and margins on mobile */}
+        <footer className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-700">
           Made with <span className="text-red-500">♥</span> by Robson Muniz from{" "}
           <span className="text-blue-600 font-semibold">Portugal</span>.
         </footer>
