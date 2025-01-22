@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import toast, { Toaster } from 'react-hot-toast';
 
-// Custom hook for debouncing values (reduces API calls while typing)
+// Custom hook for debouncing values
 function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
+    setIsTyping(true); // User started typing
     const handler = setTimeout(() => {
       setDebouncedValue(value);
+      setIsTyping(false); // User stopped typing
     }, delay);
 
     return () => {
@@ -14,28 +19,29 @@ function useDebounce(value, delay) {
     };
   }, [value, delay]);
 
-  return debouncedValue;
+  return { debouncedValue, isTyping };
 }
 
 function App() {
-  // State management for the converter
+  // State management
   const [amount, setAmount] = useState(1);
   const [fromCur, setFromCur] = useState("EUR");
   const [toCur, setToCur] = useState("USD");
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Debounce the amount to prevent excessive API calls
-  const debouncedAmount = useDebounce(amount, 500);
+  // Now we get both the debounced value and typing status
+  const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
-  // Function to swap the selected currencies
+  // Currency swap function with animation
   const swapCurrencies = () => {
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
+    toast.success('Currencies swapped!');
   };
 
-  // Effect hook for currency conversion
+  // Conversion effect
   useEffect(() => {
     const convert = async () => {
       if (fromCur === toCur) return;
@@ -47,8 +53,10 @@ function App() {
         );
         const data = await resp.json();
         setConverted(data.rates[toCur]);
+        toast.success('Conversion updated!');
       } catch (error) {
         console.error("Error fetching conversion data:", error);
+        toast.error('Failed to convert. Please try again.');
       } finally {
         setIsLoading(false);
       }
@@ -59,7 +67,7 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur]);
 
-  // Background images for different currencies
+  // Background images configuration
   const currencyBackgroundImages = {
     USD: "url('/images/us-flag.jpg')",
     EUR: "url('/images/europe-flag.jpg')",
@@ -70,123 +78,152 @@ function App() {
   };
 
   return (
-    // Main container with background
-    // Responsive: Full height screen with centered content and padding
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       className="min-h-screen flex items-center justify-center bg-gray-100 p-4 relative"
       style={{
         backgroundImage:
           currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        transition: "background-image 0.5s ease-in-out",
       }}
     >
-      {/* Card container */}
-      {/* Responsive: Padding increases with screen size, full width on mobile with max-width */}
-      <div className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto">
-        {/* Title */}
-        {/* Responsive: Font size and margin increase on larger screens */}
-        <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">
-          Currency Converter
-        </h1>
+      <Toaster position="top-right" />
 
-        {/* Amount input section */}
-        <div className="mb-4">
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95"
+      >
+        <motion.h1
+          initial={{ y: -20 }}
+          animate={{ y: 0 }}
+          className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6"
+        >
+          Currency Converter
+        </motion.h1>
+
+        <motion.div className="mb-4">
           <label className="block text-gray-700 text-sm font-medium mb-2">
             Amount
           </label>
-          <input
+          <motion.input
+            whileFocus={{ scale: 1.02 }}
             type="number"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
             disabled={isLoading}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+            className="w-full px-3 py-2 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 disabled:bg-gray-100"
+            placeholder="Enter amount..."
+            min="0"
+            step="any"
           />
-        </div>
+        </motion.div>
 
-        {/* Currency selection and swap section */}
-        {/* Responsive: Vertical on mobile, horizontal on larger screens */}
         <div className="flex flex-col sm:flex-row gap-4 items-center mb-6">
-          {/* From currency select */}
-          {/* Responsive: Full width on mobile, flex on larger screens */}
-          <div className="w-full sm:flex-1">
+          <motion.div className="w-full sm:flex-1">
             <label className="block text-gray-700 text-sm font-medium mb-2">
               From
             </label>
-            <select
+            <motion.select
+              whileFocus={{ scale: 1.02 }}
               value={fromCur}
               onChange={(e) => setFromCur(e.target.value)}
               disabled={isLoading}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+              className="w-full px-3 py-2 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 disabled:bg-gray-100"
             >
               <option value="USD">🇺🇸 USD</option>
               <option value="EUR">🇪🇺 EUR</option>
               <option value="BRL">🇧🇷 BRL</option>
               <option value="CAD">🇨🇦 CAD</option>
               <option value="INR">🇮🇳 INR</option>
-            </select>
-          </div>
+            </motion.select>
+          </motion.div>
 
-          {/* Swap button */}
-          {/* Responsive: Full width on mobile, auto width on larger screens */}
-          <button
+          <motion.button
             onClick={swapCurrencies}
             disabled={isLoading}
-            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-blue-300 disabled:cursor-not-allowed"
             title="Swap currencies"
           >
-            🔄 Swap
-          </button>
+            <motion.span
+              animate={{ rotate: isLoading ? 360 : 0 }}
+              transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
+            >
+              🔄
+            </motion.span>
+            {" Swap"}
+          </motion.button>
 
-          {/* To currency select */}
-          {/* Responsive: Full width on mobile, flex on larger screens */}
-          <div className="w-full sm:flex-1">
+          <motion.div className="w-full sm:flex-1">
             <label className="block text-gray-700 text-sm font-medium mb-2">
               To
             </label>
-            <select
+            <motion.select
+              whileFocus={{ scale: 1.02 }}
               value={toCur}
               onChange={(e) => setToCur(e.target.value)}
               disabled={isLoading}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+              className="w-full px-3 py-2 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 disabled:bg-gray-100"
             >
               <option value="USD">🇺🇸 USD</option>
               <option value="EUR">🇪🇺 EUR</option>
               <option value="BRL">🇧🇷 BRL</option>
               <option value="CAD">🇨🇦 CAD</option>
               <option value="INR">🇮🇳 INR</option>
-            </select>
-          </div>
+            </motion.select>
+          </motion.div>
         </div>
 
-        {/* Converted amount display */}
-        {/* Responsive: Smaller padding on mobile, larger on desktop */}
-        <div className="p-3 sm:p-4 bg-gray-100 rounded-lg shadow-inner text-center">
+        <motion.div
+          className="p-3 sm:p-4 bg-gray-100 rounded-lg shadow-inner text-center"
+          animate={{ opacity: isLoading ? 0.7 : 1 }}
+          transition={{ duration: 0.3 }}
+        >
           <p className="text-gray-600 text-sm">Converted Amount</p>
-          {/* Responsive: Font size increases on larger screens */}
-          <p className="text-lg sm:text-xl font-semibold text-gray-800">
-            {isLoading
-              ? "Converting..."
-              : fromCur === toCur
-                ? "Please select different currencies"
-                : `${converted || 0} ${toCur}`}
-          </p>
-        </div>
+          <motion.p
+            className="text-lg sm:text-xl font-semibold text-gray-800"
+            key={converted}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isTyping ? (
+              <span className="text-blue-500">Will convert in a moment...</span>
+            ) : isLoading ? (
+              <span className="inline-block animate-pulse">Converting...</span>
+            ) : fromCur === toCur ? (
+              <span>Please select different currencies</span>
+            ) : (
+              <span>{`${converted || 0} ${toCur}`}</span>
+            )}
+          </motion.p>
+        </motion.div>
 
-        {/* Disclaimer */}
-        {/* Responsive: Smaller text and margins on mobile */}
-        <p className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.8 }}
+          className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4"
+        >
           Exchange rates may vary and are provided by external services.
-        </p>
+        </motion.p>
 
-        {/* Footer */}
-        {/* Responsive: Smaller text and margins on mobile */}
-        <footer className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-700">
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-700"
+        >
           Made with <span className="text-red-500">♥</span> by Robson Muniz from{" "}
           <span className="text-blue-600 font-semibold">Portugal</span>.
-        </footer>
-      </div>
-    </div>
+        </motion.footer>
+      </motion.div>
+    </motion.div>
   );
 }
 
