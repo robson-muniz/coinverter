@@ -9,7 +9,7 @@ import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
 
 function App() {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(""); // Store amount as a string
   const [fromCur, setFromCur] = useState("EUR");
   const [toCur, setToCur] = useState("BRL");
   const [converted, setConverted] = useState("");
@@ -26,6 +26,7 @@ function App() {
     }
   }, [isDarkMode]);
 
+  // Debounce the amount (convert to number only when necessary)
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
   const swapCurrencies = () => {
@@ -38,6 +39,10 @@ function App() {
   useEffect(() => {
     const convert = async () => {
       if (fromCur === toCur) return;
+
+      // Convert the debounced amount to a number
+      const amountNumber = parseFloat(debouncedAmount);
+      if (isNaN(amountNumber) || amountNumber <= 0) return;
 
       setIsLoading(true);
       try {
@@ -57,6 +62,8 @@ function App() {
 
     if (debouncedAmount) {
       convert();
+    } else {
+      setConverted(""); // Clear the converted amount if the input is empty
     }
   }, [debouncedAmount, fromCur, toCur]);
 
