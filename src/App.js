@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
+import useSound from "use-sound"; // Import useSound
 import { useDebounce } from './hooks/useDebounce';
 import { CurrencyInput } from './components/CurrencyInput';
 import { CurrencySelect } from './components/CurrencySelect';
@@ -8,28 +9,33 @@ import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
 
+// Import sound files
+import swapSound from './sounds/swap.wav';
+import successSound from './sounds/success.wav';
+
 function App() {
-  const [amount, setAmount] = useState(""); // Store amount as a string
+  const [amount, setAmount] = useState("");
   const [fromCur, setFromCur] = useState("EUR");
   const [toCur, setToCur] = useState("BRL");
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Initialize useSound for swap and success sounds
+  const [playSwap] = useSound(swapSound);
+  const [playSuccess] = useSound(successSound);
+
   // Dark mode effect
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
-  // Debounce the amount (convert to number only when necessary)
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
   const swapCurrencies = () => {
+    playSwap(); // Play swap sound
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
@@ -40,10 +46,6 @@ function App() {
     const convert = async () => {
       if (fromCur === toCur) return;
 
-      // Convert the debounced amount to a number
-      const amountNumber = parseFloat(debouncedAmount);
-      if (isNaN(amountNumber) || amountNumber <= 0) return;
-
       setIsLoading(true);
       try {
         const resp = await fetch(
@@ -51,6 +53,7 @@ function App() {
         );
         const data = await resp.json();
         setConverted(data.rates[toCur]);
+        playSuccess(); // Play success sound
         toast.success('Conversion updated!');
       } catch (error) {
         console.error("Error fetching conversion data:", error);
@@ -62,10 +65,8 @@ function App() {
 
     if (debouncedAmount) {
       convert();
-    } else {
-      setConverted(""); // Clear the converted amount if the input is empty
     }
-  }, [debouncedAmount, fromCur, toCur]);
+  }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
   const currencyBackgroundImages = {
     USD: "url('/images/us-flag.jpg')",
