@@ -72,7 +72,7 @@ function App() {
     USD: "url('/images/us-flag.jpg')",
     EUR: "url('/images/europe-flag.jpg')",
     BRL: "url('/images/brazil-flag.jpg')",
-    CAD: "url('/images/canada-flag.jpg')",
+    CAD: "url('/images/canada-flag.png')",
     INR: "url('/images/india-flag.jpg')",
     DEFAULT: "url('/images/default-flag.jpg')"
   };
