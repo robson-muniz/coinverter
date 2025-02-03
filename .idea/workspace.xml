@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="I used the use-sound library to add sound effects for key actions like swapping currencies and completing a conversion.">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="git commit -m &quot;Removed .idea folder from the repository&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +71,7 @@
       <workItem from="1738599384386" duration="69000" />
       <workItem from="1738599463804" duration="4547000" />
       <workItem from="1738619389810" duration="6439000" />
-      <workItem from="1738626382171" duration="65000" />
+      <workItem from="1738626382171" duration="176000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -118,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738624834146</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="git commit -m &quot;Removed .idea folder from the repository&quot;">
+      <option name="closed" value="true" />
+      <created>1738626512807</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738626512807</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +132,7 @@
     <MESSAGE value="Added Dark Mode to it" />
     <MESSAGE value="Minor bugs fixed..." />
     <MESSAGE value="I used the use-sound library to add sound effects for key actions like swapping currencies and completing a conversion." />
-    <option name="LAST_COMMIT_MESSAGE" value="I used the use-sound library to add sound effects for key actions like swapping currencies and completing a conversion." />
+    <MESSAGE value="git commit -m &quot;Removed .idea folder from the repository&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="git commit -m &quot;Removed .idea folder from the repository&quot;" />
   </component>
 </project>
