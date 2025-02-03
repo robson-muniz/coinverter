@@ -14,6 +14,17 @@ function App() {
   const [toCur, setToCur] = useState("BRL");
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // Dark mode state
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Dark mode effect
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
@@ -62,7 +73,7 @@ function App() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center bg-gray-100 p-4 relative"
+      className="min-h-screen flex items-center justify-center bg-gray-100 p-4 relative dark:bg-gray-900"
       style={{
         backgroundImage:
           currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
@@ -71,18 +82,26 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Dark mode toggle button */}
+      <button
+        onClick={() => setIsDarkMode(!isDarkMode)}
+        className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full z-50"
+      >
+        {isDarkMode ? "🌙" : "☀️"}
+      </button>
+
       <Toaster position="top-right" />
 
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95"
+        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
       >
         <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
-          className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6"
+          className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 dark:text-white"
         >
           Currency Converter
         </motion.h1>
@@ -100,7 +119,7 @@ function App() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
-          className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4"
+          className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 dark:text-gray-400"
         >
           Exchange rates may vary and are provided by external services.
         </motion.p>
