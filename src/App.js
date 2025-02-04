@@ -21,8 +21,9 @@ function App() {
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Dark mode state
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Dark mode state (set to true by default)
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
 
   // Currency flags mapping
   const currencyFlags = {
