@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Added a Custom Cursor Element">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Detecting Mobile Devices">
+      <change afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/DonationButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CurrencySelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencySelect.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SwapButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SwapButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
@@ -75,7 +82,9 @@
       <workItem from="1738599384386" duration="69000" />
       <workItem from="1738599463804" duration="4547000" />
       <workItem from="1738619389810" duration="6439000" />
-      <workItem from="1738626382171" duration="3351000" />
+      <workItem from="1738626382171" duration="8429000" />
+      <workItem from="1738635828515" duration="2192000" />
+      <workItem from="1738686078900" duration="1167000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -141,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738629069951</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Detecting Mobile Devices">
+      <option name="closed" value="true" />
+      <created>1738630069882</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1738630069882</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,6 +171,7 @@
     <MESSAGE value="I used the use-sound library to add sound effects for key actions like swapping currencies and completing a conversion." />
     <MESSAGE value="git commit -m &quot;Removed .idea folder from the repository&quot;" />
     <MESSAGE value="Added a Custom Cursor Element" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a Custom Cursor Element" />
+    <MESSAGE value="Detecting Mobile Devices" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detecting Mobile Devices" />
   </component>
 </project>

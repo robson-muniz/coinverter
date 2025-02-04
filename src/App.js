@@ -4,10 +4,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
 import { useDebounce } from './hooks/useDebounce';
 import { CurrencyInput } from './components/CurrencyInput';
-import { CurrencySelect } from './components/CurrencySelect';
+import { CustomDropdown } from './components/CustomDropdown'; // Use CustomDropdown
 import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
+import { DonationButton } from './components/DonationButton';
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -23,8 +24,14 @@ function App() {
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Custom cursor state
-  const [cursorType, setCursorType] = useState("default");
+  // Currency flags mapping
+  const currencyFlags = {
+    USD: "US", // United States
+    EUR: "DE", // Germany (commonly associated with EUR)
+    BRL: "BR", // Brazil
+    CAD: "CA", // Canada
+    INR: "IN", // India
+  };
 
   // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
@@ -34,23 +41,6 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
-
-  // Custom cursor effect
-  useEffect(() => {
-    const updateCursorPosition = (e) => {
-      const cursor = document.querySelector(".custom-cursor");
-      if (cursor) {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-      }
-    };
-
-    document.addEventListener("mousemove", updateCursorPosition);
-
-    return () => {
-      document.removeEventListener("mousemove", updateCursorPosition);
-    };
-  }, []);
 
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
@@ -110,24 +100,12 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
-      {/* Custom cursor */}
-      <div
-        className={`custom-cursor ${cursorType}`}
-        style={{
-          position: "fixed",
-          pointerEvents: "none",
-          zIndex: 9999,
-          transition: "transform 0.1s ease, opacity 0.2s ease",
-        }}
-      >
-        {cursorType === "hover" ? "💲" : "👆"}
-      </div>
+      {/* Donation Button */}
+      <DonationButton />
 
       {/* Dark mode toggle button */}
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
-        onMouseEnter={() => setCursorType("hover")}
-        onMouseLeave={() => setCursorType("default")}
         className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full z-50"
       >
         {isDarkMode ? "🌙" : "☀️"}
@@ -152,9 +130,21 @@ function App() {
         <CurrencyInput value={amount} onChange={setAmount} isLoading={isLoading} />
 
         <div className="flex flex-col sm:flex-row gap-4 items-center mb-6">
-          <CurrencySelect value={fromCur} onChange={setFromCur} isLoading={isLoading} label="From" />
+          <CustomDropdown
+            value={fromCur}
+            onChange={setFromCur}
+            options={currencyFlags}
+            isLoading={isLoading}
+            label="From"
+          />
           <SwapButton onClick={swapCurrencies} isLoading={isLoading} />
-          <CurrencySelect value={toCur} onChange={setToCur} isLoading={isLoading} label="To" />
+          <CustomDropdown
+            value={toCur}
+            onChange={setToCur}
+            options={currencyFlags}
+            isLoading={isLoading}
+            label="To"
+          />
         </div>
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />

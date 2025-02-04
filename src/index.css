@@ -2,62 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-.custom-cursor {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.1);
+/* Donation Button Styles */
+.donation-button {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 9999;
+}
+
+.donation-button a {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.1s ease;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.custom-cursor.hover {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
+.donation-button a:hover {
+    transform: scale(1.05);
 }
 
-.custom-cursor.default {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+/* PayPal Button */
+.donation-button a.paypal {
+    background-color: #0070ba;
+    color: white;
 }
 
-/* Hide default cursor */
-body {
-    cursor: none;
+.donation-button a.paypal:hover {
+    background-color: #005ea6;
 }
 
-/* Hide default cursor only for non-mobile devices */
-@media (hover: hover) and (pointer: fine) {
-    body {
-        cursor: none;
-    }
+/* Buy Me a Coffee Button */
+.donation-button a.buy-me-a-coffee {
+    background-color: #ffdd00;
+    color: black;
 }
 
-.custom-cursor {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.1s ease;
-}
-
-.custom-cursor.hover {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
-}
-
-.custom-cursor.default {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+.donation-button a.buy-me-a-coffee:hover {
+    background-color: #e6c200;
 }
