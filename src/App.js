@@ -4,11 +4,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
 import { useDebounce } from './hooks/useDebounce';
 import { CurrencyInput } from './components/CurrencyInput';
-import { CustomDropdown } from './components/CustomDropdown'; // Use CustomDropdown
+import { CustomDropdown } from './components/CustomDropdown';
 import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
+import { ShareButton } from './components/ShareButton'; // Import ShareButton
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -24,11 +25,10 @@ function App() {
   // Dark mode state (set to true by default)
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-
   // Currency flags mapping
   const currencyFlags = {
     USD: "US", // United States
-    EUR: "DE", // Germany (commonly associated with EUR)
+    EUR: "EU", // European Union
     BRL: "BR", // Brazil
     CAD: "CA", // Canada
     INR: "IN", // India
@@ -88,6 +88,9 @@ function App() {
     DEFAULT: "url('/images/default-flag.jpg')"
   };
 
+  // Generate the conversion text for sharing
+  const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -101,6 +104,9 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Share Button */}
+      <ShareButton conversionText={conversionText} />
+
       {/* Donation Button */}
       <DonationButton />
 

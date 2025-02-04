@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import Flag from "react-flagkit"; // Correct import statement
+import Flag from "react-flagkit";
 
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
-  // Map currency codes to their respective country codes
   const currencyFlags = {
     USD: "US", // United States
-    EUR: "EU", // European Union
+    EUR: "EU", // European Union (updated)
     BRL: "BR", // Brazil
     CAD: "CA", // Canada
     INR: "IN", // India
@@ -33,7 +32,16 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
           <span>Please select different currencies</span>
         ) : (
           <span>
-            <Flag country={currencyFlags[toCur]} size={24} /> {`${converted || 0} ${toCur}`}
+            {toCur === "EUR" ? (
+              <img
+                src="/images/eu-flag.png" // Use the EU flag image
+                alt="EU Flag"
+                className="w-6 h-6 inline-block"
+              />
+            ) : (
+              <Flag country={currencyFlags[toCur]} size={24} />
+            )}{" "}
+            {`${converted || 0} ${toCur}`}
           </span>
         )}
       </motion.p>
