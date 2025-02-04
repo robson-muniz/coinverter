@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.custom-cursor.hover {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.custom-cursor.default {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Hide default cursor */
+body {
+    cursor: none;
+}

@@ -7,7 +7,8 @@ export function CurrencySelect({ value, onChange, isLoading, label }) {
         {label}
       </label>
       <motion.select
-        whileFocus={{ scale: 1.02 }}
+        whileFocus={{ scale: 1.02 }} // Slightly scale up on focus
+        whileHover={{ scale: 1.02 }} // Slightly scale up on hover
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={isLoading}

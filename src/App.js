@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
-import useSound from "use-sound"; // Import useSound
+import useSound from "use-sound";
 import { useDebounce } from './hooks/useDebounce';
 import { CurrencyInput } from './components/CurrencyInput';
 import { CurrencySelect } from './components/CurrencySelect';
@@ -23,6 +23,9 @@ function App() {
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Custom cursor state
+  const [cursorType, setCursorType] = useState("default");
+
   // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
   const [playSuccess] = useSound(successSound);
@@ -31,6 +34,23 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
+
+  // Custom cursor effect
+  useEffect(() => {
+    const updateCursorPosition = (e) => {
+      const cursor = document.querySelector(".custom-cursor");
+      if (cursor) {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      }
+    };
+
+    document.addEventListener("mousemove", updateCursorPosition);
+
+    return () => {
+      document.removeEventListener("mousemove", updateCursorPosition);
+    };
+  }, []);
 
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
@@ -90,9 +110,24 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Custom cursor */}
+      <div
+        className={`custom-cursor ${cursorType}`}
+        style={{
+          position: "fixed",
+          pointerEvents: "none",
+          zIndex: 9999,
+          transition: "transform 0.1s ease, opacity 0.2s ease",
+        }}
+      >
+        {cursorType === "hover" ? "💲" : "👆"}
+      </div>
+
       {/* Dark mode toggle button */}
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
+        onMouseEnter={() => setCursorType("hover")}
+        onMouseLeave={() => setCursorType("default")}
         className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full z-50"
       >
         {isDarkMode ? "🌙" : "☀️"}
