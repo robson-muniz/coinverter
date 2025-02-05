@@ -7,6 +7,7 @@ import { CurrencyInput } from './components/CurrencyInput';
 import { CustomDropdown } from './components/CustomDropdown';
 import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
+import { CurrencyChart } from './components/CurrencyChart'; // Import the new component
 import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
@@ -30,6 +31,16 @@ function App() {
     BRL: "BR", // Brazil
     CAD: "CA", // Canada
     INR: "IN", // India
+  };
+
+  // Background images for each currency
+  const currencyBackgroundImages = {
+    USD: "url('/images/us-flag.jpg')",
+    EUR: "url('/images/europe-flag.jpg')",
+    BRL: "url('/images/brazil-flag.jpg')",
+    CAD: "url('/images/canada-flag.png')",
+    INR: "url('/images/india-flag.jpg')",
+    DEFAULT: "url('/images/default-flag.jpg')",
   };
 
   // Initialize useSound for swap and success sounds
@@ -77,15 +88,6 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
-  const currencyBackgroundImages = {
-    USD: "url('/images/us-flag.jpg')",
-    EUR: "url('/images/europe-flag.jpg')",
-    BRL: "url('/images/brazil-flag.jpg')",
-    CAD: "url('/images/canada-flag.png')",
-    INR: "url('/images/india-flag.jpg')",
-    DEFAULT: "url('/images/default-flag.jpg')"
-  };
-
   // Generate the conversion text for sharing
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
@@ -93,15 +95,17 @@ function App() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center bg-gray-100 p-4 relative dark:bg-gray-900"
+      className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage:
-          currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
+        backgroundImage: currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
         backgroundSize: "cover",
         backgroundPosition: "center",
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Dark overlay for better readability */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
       {/* Share Button */}
       <ShareButton conversionText={conversionText} />
 
@@ -175,6 +179,9 @@ function App() {
         </div>
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
+
+        {/* Add the CurrencyChart component */}
+        <CurrencyChart fromCur={fromCur} toCur={toCur} />
 
         <motion.p
           initial={{ opacity: 0 }}

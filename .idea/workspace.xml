@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="I redesign the Converted Amount section to make it more beautiful, clean, and professional.">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Minor bugs fixed like the UE flag not showing in dropdown">
+      <change afterPath="$PROJECT_DIR$/src/components/CurrencyChart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +83,10 @@
       <workItem from="1738701239816" duration="205000" />
       <workItem from="1738707912445" duration="8722000" />
       <workItem from="1738760299320" duration="5462000" />
+      <workItem from="1738779375228" duration="633000" />
+      <workItem from="1738780017018" duration="103000" />
+      <workItem from="1738781024507" duration="55000" />
+      <workItem from="1738792008286" duration="458000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
