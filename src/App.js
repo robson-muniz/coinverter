@@ -180,8 +180,10 @@ function App() {
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
 
-        {/* Add the CurrencyChart component */}
-        <CurrencyChart fromCur={fromCur} toCur={toCur} />
+        {/* Add the CurrencyChart component with margin-bottom */}
+        <div className="mt-8 mb-8"> {/* Added margin-bottom */}
+          <CurrencyChart fromCur={fromCur} toCur={toCur} />
+        </div>
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -191,7 +193,10 @@ function App() {
           Exchange rates may vary and are provided by external services.
         </motion.p>
 
-        <Footer />
+        {/* Footer with margin-top */}
+        <div className="mt-8"> {/* Added margin-top */}
+          <Footer />
+        </div>
       </motion.div>
     </motion.div>
   );

@@ -40,7 +40,7 @@ export function CurrencyChart({ fromCur, toCur }) {
   }
 
   return (
-    <div className="mt-8 w-full h-64 sm:h-96">
+    <div className="w-full h-48 sm:h-64"> {/* Adjusted height for mobile and desktop */}
       <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">
         Historical Exchange Rates ({fromCur} to {toCur})
       </h2>
