@@ -7,10 +7,10 @@ import { CurrencyInput } from './components/CurrencyInput';
 import { CustomDropdown } from './components/CustomDropdown';
 import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
-import { CurrencyChart } from './components/CurrencyChart'; // Import the new component
 import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
+import { initGA, trackPageView, trackEvent } from './utils/analytics'; // Import analytics functions
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -43,6 +43,12 @@ function App() {
     DEFAULT: "url('/images/default-flag.jpg')",
   };
 
+  // Initialize Google Analytics on component mount
+  useEffect(() => {
+    initGA();
+    trackPageView(window.location.pathname + window.location.search);
+  }, []);
+
   // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
   const [playSuccess] = useSound(successSound);
@@ -60,6 +66,9 @@ function App() {
     setFromCur(toCur);
     setToCur(temp);
     toast.success('Currencies swapped!');
+
+    // Track swap event
+    trackEvent('Currency', 'Swap', `From ${temp} to ${toCur}`);
   };
 
   useEffect(() => {
@@ -148,12 +157,12 @@ function App() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
+        className="relative bg-white shadow-lg rounded-lg p-6 sm:p-8 md:p-10 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
       >
         <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
-          className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 dark:text-white"
+          className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8 dark:text-white"
         >
           Currency Converter
         </motion.h1>
@@ -180,23 +189,15 @@ function App() {
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
 
-        {/* Add the CurrencyChart component with margin-bottom */}
-        <div className="mt-8 mb-8"> {/* Added margin-bottom */}
-          <CurrencyChart fromCur={fromCur} toCur={toCur} />
-        </div>
-
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
-          className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 dark:text-gray-400"
+          className="text-center text-sm sm:text-base text-gray-500 mt-4 sm:mt-6 dark:text-gray-400"
         >
           Exchange rates may vary and are provided by external services.
         </motion.p>
 
-        {/* Footer with margin-top */}
-        <div className="mt-8"> {/* Added margin-top */}
-          <Footer />
-        </div>
+        <Footer />
       </motion.div>
     </motion.div>
   );

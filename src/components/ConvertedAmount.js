@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Flag from "react-flagkit";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { trackEvent } from '../utils/analytics'; // Import analytics function
 
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
   const currencyFlags = {
@@ -21,34 +22,38 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
         await navigator.clipboard.writeText(`${converted} ${toCur}`);
         setIsCopied(true); // Set copied state to true
         toast.success("Copied to clipboard!");
-        setTimeout(() => setIsCopied(false), 1500); // Reset after 1.5 seconds
+
+        // Track copy event
+        trackEvent('Conversion', 'Copy', `${converted} ${toCur}`);
       } catch (err) {
         toast.error("Failed to copy text");
         console.error("Failed to copy text: ", err);
+      } finally {
+        setTimeout(() => setIsCopied(false), 1500); // Reset after 1.5 seconds
       }
     }
   };
 
   return (
     <motion.div
-      className="p-4 sm:p-6 bg-white rounded-lg shadow-md text-center dark:bg-gray-800"
+      className="p-6 sm:p-8 bg-white rounded-lg shadow-md text-center dark:bg-gray-800"
       animate={{ opacity: isLoading ? 0.7 : 1 }}
       transition={{ duration: 0.3 }}
     >
-      <p className="text-gray-600 text-sm font-medium mb-2 dark:text-gray-300">Converted Amount</p>
+      <p className="text-gray-600 text-lg font-medium mb-4 dark:text-gray-300">Converted Amount</p>
 
       <motion.div
-        className="flex items-center justify-center gap-3"
+        className="flex items-center justify-center gap-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
         {isTyping ? (
-          <span className="text-blue-500">Will convert in a moment...</span>
+          <span className="text-blue-500 text-lg">Will convert in a moment...</span>
         ) : isLoading ? (
-          <span className="inline-block animate-pulse">Converting...</span>
+          <span className="inline-block animate-pulse text-lg">Converting...</span>
         ) : fromCur === toCur ? (
-          <span>Please select different currencies</span>
+          <span className="text-lg">Please select different currencies</span>
         ) : (
           <>
             {/* Flag */}
@@ -57,19 +62,19 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                 <img
                   src="/images/eu-flag.png" // Use the EU flag image
                   alt="EU Flag"
-                  className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-600"
+                  className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
               ) : (
                 <Flag
                   country={currencyFlags[toCur]}
-                  size={32}
+                  size={40}
                   className="rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
               )}
             </div>
 
             {/* Converted Amount */}
-            <span className="text-2xl font-semibold text-gray-800 dark:text-white">
+            <span className="text-3xl font-semibold text-gray-800 dark:text-white">
               {`${converted || 0} ${toCur}`}
             </span>
 

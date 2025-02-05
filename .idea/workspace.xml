@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="I just added a chart to it">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Minor bugs fixed">
+      <change afterPath="$PROJECT_DIR$/src/utils/analytics.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CurrencyChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyChart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SwapButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SwapButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +65,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/utils" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +97,7 @@
       <workItem from="1738779375228" duration="633000" />
       <workItem from="1738780017018" duration="103000" />
       <workItem from="1738781024507" duration="55000" />
-      <workItem from="1738792008286" duration="1190000" />
+      <workItem from="1738792008286" duration="4422000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -199,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738792584290</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Minor bugs fixed">
+      <option name="closed" value="true" />
+      <created>1738793253048</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738793253048</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,6 +238,7 @@
     <MESSAGE value="I just added a ShareButton to it." />
     <MESSAGE value="I redesign the Converted Amount section to make it more beautiful, clean, and professional." />
     <MESSAGE value="I just added a chart to it" />
-    <option name="LAST_COMMIT_MESSAGE" value="I just added a chart to it" />
+    <MESSAGE value="Minor bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor bugs fixed" />
   </component>
 </project>
