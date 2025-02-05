@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
 import { useDebounce } from './hooks/useDebounce';
@@ -9,7 +9,7 @@ import { SwapButton } from './components/SwapButton';
 import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
-import { ShareButton } from './components/ShareButton'; // Import ShareButton
+import { ShareButton } from './components/ShareButton';
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -21,8 +21,6 @@ function App() {
   const [toCur, setToCur] = useState("BRL");
   const [converted, setConverted] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Dark mode state (set to true by default)
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Currency flags mapping
@@ -110,13 +108,35 @@ function App() {
       {/* Donation Button */}
       <DonationButton />
 
-      {/* Dark mode toggle button */}
-      <button
+      {/* Dark mode toggle button with animation */}
+      <motion.button
         onClick={() => setIsDarkMode(!isDarkMode)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ rotate: isDarkMode ? 180 : 0 }}
+        transition={{ type: "spring", stiffness: 300 }}
         className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full z-50"
       >
         {isDarkMode ? "🌙" : "☀️"}
-      </button>
+      </motion.button>
+
+      {/* Loading spinner */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Toaster position="top-right" />
 

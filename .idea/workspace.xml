@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="I just added a ShareButton to it.">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="I redesign the Converted Amount section to make it more beautiful, clean, and professional.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +82,7 @@
       <workItem from="1738686078900" duration="3917000" />
       <workItem from="1738701239816" duration="205000" />
       <workItem from="1738707912445" duration="8722000" />
-      <workItem from="1738760299320" duration="433000" />
+      <workItem from="1738760299320" duration="5462000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -177,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738710852807</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="I redesign the Converted Amount section to make it more beautiful, clean, and professional.">
+      <option name="closed" value="true" />
+      <created>1738760844227</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1738760844227</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +205,7 @@
     <MESSAGE value="I added the country flags in the dropdown..." />
     <MESSAGE value="I added the country flags in the dropdown...and made the Dark mode state true by default" />
     <MESSAGE value="I just added a ShareButton to it." />
-    <option name="LAST_COMMIT_MESSAGE" value="I just added a ShareButton to it." />
+    <MESSAGE value="I redesign the Converted Amount section to make it more beautiful, clean, and professional." />
+    <option name="LAST_COMMIT_MESSAGE" value="I redesign the Converted Amount section to make it more beautiful, clean, and professional." />
   </component>
 </project>

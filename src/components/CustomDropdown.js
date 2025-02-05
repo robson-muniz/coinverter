@@ -40,14 +40,16 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
           className="absolute z-10 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg"
         >
           {Object.entries(options).map(([code, countryCode]) => (
-            <div
+            <motion.div
               key={code}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => handleSelect(code)}
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
             >
               {code === "EUR" ? (
                 <img
-                  src="/images/eu-flag.png" // Use the EU flag image
+                  src="/images/eu-flag.png"
                   alt="EU Flag"
                   className="w-6 h-6"
                 />
@@ -55,7 +57,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
                 <Flag country={countryCode} size={16} />
               )}
               <span>{code}</span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       )}
