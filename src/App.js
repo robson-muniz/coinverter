@@ -10,7 +10,7 @@ import { ConvertedAmount } from './components/ConvertedAmount';
 import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
-import { initGA, trackPageView, trackEvent } from './utils/analytics'; // Import analytics functions
+import { initGA, trackPageView, trackEvent } from './utils/analytics';
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -115,11 +115,11 @@ function App() {
       {/* Dark overlay for better readability */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Share Button */}
-      <ShareButton conversionText={conversionText} />
-
-      {/* Donation Button */}
-      <DonationButton />
+      {/* Share and Donation Buttons (positioned at the bottom center) */}
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
+        <ShareButton conversionText={conversionText} />
+        <DonationButton />
+      </div>
 
       {/* Dark mode toggle button with animation */}
       <motion.button
@@ -157,12 +157,12 @@ function App() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="relative bg-white shadow-lg rounded-lg p-6 sm:p-8 md:p-10 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
+        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
       >
         <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
-          className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8 dark:text-white"
+          className="text-2xl sm:text-4xl font-bold text-center mb-4 sm:mb-6 dark:text-white"
         >
           Currency Converter
         </motion.h1>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Flag from "react-flagkit";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { trackEvent } from '../utils/analytics'; // Import analytics function
+import { trackEvent } from '../utils/analytics';
 
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
   const currencyFlags = {
@@ -36,7 +36,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
 
   return (
     <motion.div
-      className="p-6 sm:p-8 bg-white rounded-lg shadow-md text-center dark:bg-gray-800"
+      className="p-4 sm:p-6 bg-white rounded-lg shadow-md text-center dark:bg-gray-800"
       animate={{ opacity: isLoading ? 0.7 : 1 }}
       transition={{ duration: 0.3 }}
     >
@@ -62,19 +62,19 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                 <img
                   src="/images/eu-flag.png" // Use the EU flag image
                   alt="EU Flag"
-                  className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600"
+                  className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
               ) : (
                 <Flag
                   country={currencyFlags[toCur]}
-                  size={40}
+                  size={32}
                   className="rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
               )}
             </div>
 
             {/* Converted Amount */}
-            <span className="text-3xl font-semibold text-gray-800 dark:text-white">
+            <span className="text-3xl font-semibold text-blue-600 dark:text-blue-400">
               {`${converted || 0} ${toCur}`}
             </span>
 
