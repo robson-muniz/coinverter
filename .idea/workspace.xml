@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment=" improving readability and ensure that the Donation and Share buttons don’t overlap with important information">
-      <change afterPath="$PROJECT_DIR$/src/components/PDFDocument.js" afterDir="false" />
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Added a save as PDF button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +96,7 @@
       <workItem from="1738853687284" duration="677000" />
       <workItem from="1738880307604" duration="1557000" />
       <workItem from="1738965403610" duration="741000" />
-      <workItem from="1739027750382" duration="728000" />
+      <workItem from="1739027750382" duration="1910000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -234,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738881495980</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added a save as PDF button">
+      <option name="closed" value="true" />
+      <created>1739029201736</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1739029201736</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,6 +264,7 @@
     <MESSAGE value="Minor bugs fixed" />
     <MESSAGE value="The complete implementation of Google Analytics across all relevant components in your app." />
     <MESSAGE value=" improving readability and ensure that the Donation and Share buttons don’t overlap with important information" />
-    <option name="LAST_COMMIT_MESSAGE" value=" improving readability and ensure that the Donation and Share buttons don’t overlap with important information" />
+    <MESSAGE value="Added a save as PDF button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a save as PDF button" />
   </component>
 </project>
