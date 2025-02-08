@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
@@ -11,6 +11,8 @@ import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
 import { initGA, trackPageView, trackEvent } from './utils/analytics';
+import { PDFDownloadLink } from "@react-pdf/renderer"; // Import PDFDownloadLink
+import { PDFDocument } from './components/PDFDocument'; // Import PDFDocument
 
 // Import sound files
 import swapSound from './sounds/swap.wav';
@@ -188,6 +190,24 @@ function App() {
         </div>
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
+
+        {/* Save as PDF Button */}
+        {converted && (
+          <PDFDownloadLink
+            document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
+            fileName="conversion_result.pdf"
+          >
+            {({ loading }) => (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
+              >
+                {loading ? "Generating PDF..." : "Save as PDF"}
+              </motion.button>
+            )}
+          </PDFDownloadLink>
+        )}
 
         <motion.p
           initial={{ opacity: 0 }}
