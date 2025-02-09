@@ -7,8 +7,8 @@ export function CurrencyInput({ value, onChange, isLoading }) {
         Amount
       </label>
       <motion.input
-        whileFocus={{ scale: 1.02, borderColor: "#3b82f6" }} // Scale up and change border color
-        whileHover={{ scale: 1.02 }} // Slight scale on hover
+        whileFocus={{ scale: 1.02, borderColor: "#3b82f6" }}
+        whileHover={{ scale: 1.02, borderColor: "#3b82f6" }}
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}

@@ -6,18 +6,16 @@ export function CurrencyChart({ fromCur, toCur }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch historical data
   useEffect(() => {
     const fetchHistoricalData = async () => {
       try {
-        const currentDate = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
-        const pastDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString().split("T")[0]; // Get date 1 year ago
+        const currentDate = new Date().toISOString().split("T")[0];
+        const pastDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString().split("T")[0];
         const response = await fetch(
           `https://api.frankfurter.app/${pastDate}..${currentDate}?from=${fromCur}&to=${toCur}`
         );
         const result = await response.json();
 
-        // Format data for Recharts
         const formattedData = Object.entries(result.rates).map(([date, rates]) => ({
           date,
           rate: rates[toCur],
@@ -40,7 +38,7 @@ export function CurrencyChart({ fromCur, toCur }) {
   }
 
   return (
-    <div className="w-full h-48 sm:h-64"> {/* Adjusted height for mobile and desktop */}
+    <div className="w-full h-48 sm:h-64">
       <h2 className="text-xl font-semibold text-center mb-4 dark:text-white">
         Historical Exchange Rates ({fromCur} to {toCur})
       </h2>
@@ -56,8 +54,16 @@ export function CurrencyChart({ fromCur, toCur }) {
               borderRadius: "8px",
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             }}
+            animationDuration={300}
           />
-          <Line type="monotone" dataKey="rate" stroke="#3b82f6" strokeWidth={2} dot={false} />
+          <Line
+            type="monotone"
+            dataKey="rate"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            dot={false}
+            animationDuration={1000}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

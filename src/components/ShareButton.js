@@ -7,6 +7,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import { motion } from "framer-motion"; // Add this import
 
 export function ShareButton({ conversionText }) {
   const shareUrl = window.location.href;
@@ -14,15 +15,21 @@ export function ShareButton({ conversionText }) {
 
   return (
     <div className="flex gap-2">
-      <FacebookShareButton url={shareUrl} quote={conversionText || title}>
-        <FacebookIcon size={32} round />
-      </FacebookShareButton>
-      <TwitterShareButton url={shareUrl} title={conversionText || title}>
-        <TwitterIcon size={32} round />
-      </TwitterShareButton>
-      <WhatsappShareButton url={shareUrl} title={conversionText || title}>
-        <WhatsappIcon size={32} round />
-      </WhatsappShareButton>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <FacebookShareButton url={shareUrl} quote={conversionText || title}>
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
+      </motion.div>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <TwitterShareButton url={shareUrl} title={conversionText || title}>
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
+      </motion.div>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <WhatsappShareButton url={shareUrl} title={conversionText || title}>
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
+      </motion.div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
         <div className="flex items-center gap-2">
           {value === "EUR" ? (
             <img
-              src="/images/eu-flag.png" // Use the EU flag image
+              src="/images/eu-flag.png"
               alt="EU Flag"
               className="w-6 h-6"
             />
@@ -42,7 +42,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
           {Object.entries(options).map(([code, countryCode]) => (
             <motion.div
               key={code}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, backgroundColor: "#f3f4f6" }}
               whileTap={{ scale: 0.98 }}
               onClick={() => handleSelect(code)}
               className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"

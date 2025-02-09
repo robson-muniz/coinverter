@@ -6,30 +6,27 @@ import { trackEvent } from '../utils/analytics';
 
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
   const currencyFlags = {
-    USD: "US", // United States
-    EUR: "EU", // European Union (updated)
-    BRL: "BR", // Brazil
-    CAD: "CA", // Canada
-    INR: "IN", // India
+    USD: "US",
+    EUR: "EU",
+    BRL: "BR",
+    CAD: "CA",
+    INR: "IN",
   };
 
-  const [isCopied, setIsCopied] = useState(false); // State to track if copied
+  const [isCopied, setIsCopied] = useState(false);
 
-  // Copy to Clipboard function
   const handleCopyToClipboard = async () => {
     if (converted) {
       try {
         await navigator.clipboard.writeText(`${converted} ${toCur}`);
-        setIsCopied(true); // Set copied state to true
+        setIsCopied(true);
         toast.success("Copied to clipboard!");
-
-        // Track copy event
         trackEvent('Conversion', 'Copy', `${converted} ${toCur}`);
       } catch (err) {
         toast.error("Failed to copy text");
         console.error("Failed to copy text: ", err);
       } finally {
-        setTimeout(() => setIsCopied(false), 1500); // Reset after 1.5 seconds
+        setTimeout(() => setIsCopied(false), 1500);
       }
     }
   };
@@ -56,11 +53,10 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
           <span className="text-lg">Please select different currencies</span>
         ) : (
           <>
-            {/* Flag */}
             <div className="flex-shrink-0">
               {toCur === "EUR" ? (
                 <img
-                  src="/images/eu-flag.png" // Use the EU flag image
+                  src="/images/eu-flag.png"
                   alt="EU Flag"
                   className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
@@ -73,17 +69,15 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
               )}
             </div>
 
-            {/* Converted Amount */}
             <span className="text-3xl font-semibold text-blue-600 dark:text-blue-400">
               {`${converted || 0} ${toCur}`}
             </span>
 
-            {/* Copy to Clipboard Icon */}
             {converted && !isTyping && !isLoading && fromCur !== toCur && (
               <motion.div
                 onClick={handleCopyToClipboard}
-                whileHover={{ scale: 1.1 }} // Slight scale on hover
-                whileTap={{ scale: 0.9 }} // Slight scale on tap
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 className="cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 title="Copy to Clipboard"
               >

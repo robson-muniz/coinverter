@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
@@ -11,12 +11,11 @@ import { Footer } from './components/Footer';
 import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
 import { initGA, trackPageView, trackEvent } from './utils/analytics';
-import { PDFDownloadLink } from "@react-pdf/renderer"; // Import PDFDownloadLink
-import { PDFDocument } from './components/PDFDocument'; // Import PDFDocument
-
-// Import sound files
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import swapSound from './sounds/swap.wav';
 import successSound from './sounds/success.wav';
+
+const PDFDocument = lazy(() => import('./components/PDFDocument'));
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -26,16 +25,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Currency flags mapping
   const currencyFlags = {
-    USD: "US", // United States
-    EUR: "EU", // European Union
-    BRL: "BR", // Brazil
-    CAD: "CA", // Canada
-    INR: "IN", // India
+    USD: "US",
+    EUR: "EU",
+    BRL: "BR",
+    CAD: "CA",
+    INR: "IN",
   };
 
-  // Background images for each currency
   const currencyBackgroundImages = {
     USD: "url('/images/us-flag.jpg')",
     EUR: "url('/images/europe-flag.jpg')",
@@ -45,17 +42,14 @@ function App() {
     DEFAULT: "url('/images/default-flag.jpg')",
   };
 
-  // Initialize Google Analytics on component mount
   useEffect(() => {
     initGA();
     trackPageView(window.location.pathname + window.location.search);
   }, []);
 
-  // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
   const [playSuccess] = useSound(successSound);
 
-  // Dark mode effect
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
@@ -63,13 +57,11 @@ function App() {
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
   const swapCurrencies = () => {
-    playSwap(); // Play swap sound
+    playSwap();
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
     toast.success('Currencies swapped!');
-
-    // Track swap event
     trackEvent('Currency', 'Swap', `From ${temp} to ${toCur}`);
   };
 
@@ -82,9 +74,10 @@ function App() {
         const resp = await fetch(
           `https://api.frankfurter.app/latest?amount=${debouncedAmount}&from=${fromCur}&to=${toCur}`
         );
+        if (!resp.ok) throw new Error("Failed to fetch conversion data");
         const data = await resp.json();
         setConverted(data.rates[toCur]);
-        playSuccess(); // Play success sound
+        playSuccess();
         toast.success('Conversion updated!');
       } catch (error) {
         console.error("Error fetching conversion data:", error);
@@ -99,7 +92,6 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
-  // Generate the conversion text for sharing
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
   return (
@@ -114,17 +106,15 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
-      {/* Dark overlay for better readability */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Share and Donation Buttons (positioned at the bottom center) */}
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
         <ShareButton conversionText={conversionText} />
         <DonationButton />
       </div>
 
-      {/* Dark mode toggle button with animation */}
       <motion.button
+        aria-label="Toggle dark mode"
         onClick={() => setIsDarkMode(!isDarkMode)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -135,7 +125,6 @@ function App() {
         {isDarkMode ? "🌙" : "☀️"}
       </motion.button>
 
-      {/* Loading spinner */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -159,7 +148,7 @@ function App() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="relative bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:bg-gray-800 dark:text-white"
+        className="relative bg-gradient-to-br from-blue-50 to-purple-50 shadow-xl rounded-2xl p-6 sm:p-8 md:p-10 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:from-gray-800 dark:to-gray-900 dark:text-white"
       >
         <motion.h1
           initial={{ y: -20 }}
@@ -191,22 +180,23 @@ function App() {
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
 
-        {/* Save as PDF Button */}
         {converted && (
-          <PDFDownloadLink
-            document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
-            fileName="conversion_result.pdf"
-          >
-            {({ loading }) => (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
-              >
-                {loading ? "Generating PDF..." : "Save as PDF"}
-              </motion.button>
-            )}
-          </PDFDownloadLink>
+          <Suspense fallback={<div>Loading PDF...</div>}>
+            <PDFDownloadLink
+              document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
+              fileName="conversion_result.pdf"
+            >
+              {({ loading }) => (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
+                >
+                  {loading ? "Generating PDF..." : "Save as PDF"}
+                </motion.button>
+              )}
+            </PDFDownloadLink>
+          </Suspense>
         )}
 
         <motion.p
