@@ -15,15 +15,23 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { PDFDocument } from './components/PDFDocument';
 import swapSound from './sounds/swap.wav';
 import successSound from './sounds/success.wav';
+import CurrencyNews from './components/CurrencyNews'; // Import the CurrencyNews component
 
 function App() {
+  // State for the amount to convert
   const [amount, setAmount] = useState("");
+  // State for the "from" currency
   const [fromCur, setFromCur] = useState("EUR");
+  // State for the "to" currency
   const [toCur, setToCur] = useState("BRL");
+  // State for the converted amount
   const [converted, setConverted] = useState("");
+  // State to track loading status
   const [isLoading, setIsLoading] = useState(false);
+  // State for dark mode
   const [isDarkMode, setIsDarkMode] = useState(true);
 
+  // Currency flags mapping
   const currencyFlags = {
     USD: "US",
     EUR: "EU",
@@ -37,36 +45,42 @@ function App() {
     BRL: "BR",
   };
 
+  // Background images for each currency
   const currencyBackgroundImages = {
-    USD: "url('/images/us-flag.png')",
+    USD: "url('/images/us-flag.jpg')",
     EUR: "url('/images/europe-flag.jpg')",
-    GBP: "url('/images/uk-flag.png')",
-    JPY: "url('/images/japan-flag.png')",
-    CNY: "url('/images/china-flag.png')",
-    AUD: "url('/images/australia-flag.png')",
+    GBP: "url('/images/uk-flag.jpg')",
+    JPY: "url('/images/japan-flag.jpg')",
+    CNY: "url('/images/china-flag.jpg')",
+    AUD: "url('/images/australia-flag.jpg')",
     CAD: "url('/images/canada-flag.png')",
-    CHF: "url('/images/switzerland-flag.png')",
+    CHF: "url('/images/switzerland-flag.jpg')",
     INR: "url('/images/india-flag.jpg')",
     BRL: "url('/images/brazil-flag.jpg')",
     DEFAULT: "url('/images/default-flag.jpg')",
   };
 
+  // Initialize Google Analytics on component mount
   useEffect(() => {
     initGA();
     trackPageView(window.location.pathname + window.location.search);
   }, []);
 
+  // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
   const [playSuccess] = useSound(successSound);
 
+  // Toggle dark mode
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
+  // Debounce the amount input to avoid excessive API calls
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
+  // Function to swap currencies
   const swapCurrencies = () => {
-    playSwap();
+    playSwap(); // Play swap sound
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
@@ -74,6 +88,7 @@ function App() {
     trackEvent('Currency', 'Swap', `From ${temp} to ${toCur}`);
   };
 
+  // Fetch conversion data when debouncedAmount, fromCur, or toCur changes
   useEffect(() => {
     const convert = async () => {
       if (fromCur === toCur) return;
@@ -86,7 +101,7 @@ function App() {
         if (!resp.ok) throw new Error("Failed to fetch conversion data");
         const data = await resp.json();
         setConverted(data.rates[toCur]);
-        playSuccess();
+        playSuccess(); // Play success sound
         toast.success('Conversion updated!');
       } catch (error) {
         console.error("Error fetching conversion data:", error);
@@ -101,6 +116,7 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
+  // Generate the conversion text for sharing
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
   return (
@@ -115,13 +131,16 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
+      {/* Dark overlay for better readability */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
+      {/* Share and Donation Buttons */}
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
         <ShareButton conversionText={conversionText} />
         <DonationButton />
       </div>
 
+      {/* Dark mode toggle button */}
       <motion.button
         aria-label="Toggle dark mode"
         onClick={() => setIsDarkMode(!isDarkMode)}
@@ -134,6 +153,7 @@ function App() {
         {isDarkMode ? "🌙" : "☀️"}
       </motion.button>
 
+      {/* Loading spinner */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -151,14 +171,17 @@ function App() {
         )}
       </AnimatePresence>
 
+      {/* Toast notifications */}
       <Toaster position="top-right" />
 
+      {/* Main content card */}
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
         className="relative bg-gradient-to-br from-blue-50 to-purple-50 shadow-xl rounded-2xl p-6 sm:p-8 md:p-10 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:from-gray-800 dark:to-gray-900 dark:text-white"
       >
+        {/* App title */}
         <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
@@ -167,8 +190,10 @@ function App() {
           Currency Converter
         </motion.h1>
 
+        {/* Currency input field */}
         <CurrencyInput value={amount} onChange={setAmount} isLoading={isLoading} />
 
+        {/* Currency selection and swap button */}
         <div className="flex flex-col sm:flex-row gap-4 items-center mb-6">
           <CustomDropdown
             value={fromCur}
@@ -187,8 +212,10 @@ function App() {
           />
         </div>
 
+        {/* Converted amount display */}
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
 
+        {/* Save as PDF button */}
         {converted && (
           <PDFDownloadLink
             document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
@@ -207,14 +234,10 @@ function App() {
           </PDFDownloadLink>
         )}
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8 }}
-          className="text-center text-sm sm:text-base text-gray-500 mt-4 sm:mt-6 dark:text-gray-400"
-        >
-          Exchange rates may vary and are provided by external services.
-        </motion.p>
+        {/* Currency news section */}
+        <CurrencyNews />
 
+        {/* Footer */}
         <Footer />
       </motion.div>
     </motion.div>
