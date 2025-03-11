@@ -7,7 +7,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-import { motion } from "framer-motion"; // Add this import
+import { motion } from "framer-motion";
 
 export function ShareButton({ conversionText }) {
   const shareUrl = window.location.href;

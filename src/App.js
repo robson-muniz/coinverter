@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
 import useSound from "use-sound";
@@ -12,10 +12,9 @@ import { DonationButton } from './components/DonationButton';
 import { ShareButton } from './components/ShareButton';
 import { initGA, trackPageView, trackEvent } from './utils/analytics';
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDocument } from './components/PDFDocument';
 import swapSound from './sounds/swap.wav';
 import successSound from './sounds/success.wav';
-
-const PDFDocument = lazy(() => import('./components/PDFDocument'));
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -25,46 +24,41 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Currency flags mapping
   const currencyFlags = {
-    USD: "US", // United States
-    EUR: "EU", // European Union
-    GBP: "GB", // United Kingdom
-    JPY: "JP", // Japan
-    CNY: "CN", // China
-    AUD: "AU", // Australia
-    CAD: "CA", // Canada
-    CHF: "CH", // Switzerland
-    INR: "IN", // India
-    BRL: "BR", // Brazil
+    USD: "US",
+    EUR: "EU",
+    GBP: "GB",
+    JPY: "JP",
+    CNY: "CN",
+    AUD: "AU",
+    CAD: "CA",
+    CHF: "CH",
+    INR: "IN",
+    BRL: "BR",
   };
 
-  // Background images for each currency
   const currencyBackgroundImages = {
-    USD: "url('/images/us-flag.jpg')",
+    USD: "url('/images/us-flag.png')",
     EUR: "url('/images/europe-flag.jpg')",
-    GBP: "url('/images/uk-flag.jpg')",
-    JPY: "url('/images/japan-flag.jpg')",
-    CNY: "url('/images/china-flag.jpg')",
-    AUD: "url('/images/australia-flag.jpg')",
+    GBP: "url('/images/uk-flag.png')",
+    JPY: "url('/images/japan-flag.png')",
+    CNY: "url('/images/china-flag.png')",
+    AUD: "url('/images/australia-flag.png')",
     CAD: "url('/images/canada-flag.png')",
-    CHF: "url('/images/switzerland-flag.jpg')",
+    CHF: "url('/images/switzerland-flag.png')",
     INR: "url('/images/india-flag.jpg')",
     BRL: "url('/images/brazil-flag.jpg')",
     DEFAULT: "url('/images/default-flag.jpg')",
   };
 
-  // Initialize Google Analytics on component mount
   useEffect(() => {
     initGA();
     trackPageView(window.location.pathname + window.location.search);
   }, []);
 
-  // Initialize useSound for swap and success sounds
   const [playSwap] = useSound(swapSound);
   const [playSuccess] = useSound(successSound);
 
-  // Dark mode effect
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
@@ -72,13 +66,11 @@ function App() {
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
   const swapCurrencies = () => {
-    playSwap(); // Play swap sound
+    playSwap();
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
     toast.success('Currencies swapped!');
-
-    // Track swap event
     trackEvent('Currency', 'Swap', `From ${temp} to ${toCur}`);
   };
 
@@ -94,7 +86,7 @@ function App() {
         if (!resp.ok) throw new Error("Failed to fetch conversion data");
         const data = await resp.json();
         setConverted(data.rates[toCur]);
-        playSuccess(); // Play success sound
+        playSuccess();
         toast.success('Conversion updated!');
       } catch (error) {
         console.error("Error fetching conversion data:", error);
@@ -109,7 +101,6 @@ function App() {
     }
   }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
-  // Generate the conversion text for sharing
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
   return (
@@ -124,16 +115,13 @@ function App() {
         transition: "background-image 0.5s ease-in-out",
       }}
     >
-      {/* Dark overlay for better readability */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Share and Donation Buttons (positioned at the bottom center) */}
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
         <ShareButton conversionText={conversionText} />
         <DonationButton />
       </div>
 
-      {/* Dark mode toggle button with animation */}
       <motion.button
         aria-label="Toggle dark mode"
         onClick={() => setIsDarkMode(!isDarkMode)}
@@ -146,7 +134,6 @@ function App() {
         {isDarkMode ? "🌙" : "☀️"}
       </motion.button>
 
-      {/* Loading spinner */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -166,7 +153,6 @@ function App() {
 
       <Toaster position="top-right" />
 
-      {/* Sleek Card Design */}
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -203,24 +189,22 @@ function App() {
 
         <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
 
-        {/* Save as PDF Button */}
         {converted && (
-          <Suspense fallback={<div>Loading PDF...</div>}>
-            <PDFDownloadLink
-              document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
-              fileName="conversion_result.pdf"
-            >
-              {({ loading }) => (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
-                >
-                  {loading ? "Generating PDF..." : "Save as PDF"}
-                </motion.button>
-              )}
-            </PDFDownloadLink>
-          </Suspense>
+          <PDFDownloadLink
+            document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
+            fileName="conversion_result.pdf"
+          >
+            {({ loading }) => (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
+                disabled={loading}
+              >
+                {loading ? "Generating PDF..." : "Save as PDF"}
+              </motion.button>
+            )}
+          </PDFDownloadLink>
         )}
 
         <motion.p

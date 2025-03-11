@@ -1,6 +1,5 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { motion } from "framer-motion"; // Add this import
 
 const styles = StyleSheet.create({
   page: {
@@ -30,29 +29,23 @@ const styles = StyleSheet.create({
 export const PDFDocument = ({ amount, fromCur, toCur, converted }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Text style={styles.title}>Currency Conversion Result</Text>
-        <View style={styles.section}>
-          <Text style={styles.label}>Amount:</Text>
-          <Text style={styles.value}>{amount} {fromCur}</Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.label}>Converted Amount:</Text>
-          <Text style={styles.value}>{converted} {toCur}</Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.label}>From Currency:</Text>
-          <Text style={styles.value}>{fromCur}</Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.label}>To Currency:</Text>
-          <Text style={styles.value}>{toCur}</Text>
-        </View>
-      </motion.div>
+      <Text style={styles.title}>Currency Conversion Result</Text>
+      <View style={styles.section}>
+        <Text style={styles.label}>Amount:</Text>
+        <Text style={styles.value}>{amount} {fromCur}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.label}>Converted Amount:</Text>
+        <Text style={styles.value}>{converted} {toCur}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.label}>From Currency:</Text>
+        <Text style={styles.value}>{fromCur}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.label}>To Currency:</Text>
+        <Text style={styles.value}>{toCur}</Text>
+      </View>
     </Page>
   </Document>
 );

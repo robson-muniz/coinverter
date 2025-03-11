@@ -7,7 +7,7 @@ import { trackEvent } from '../utils/analytics';
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
   const currencyFlags = {
     USD: "US",
-    EUR: "EU",
+    EUR: "EU", // European Union
     BRL: "BR",
     CAD: "CA",
     INR: "IN",
@@ -56,7 +56,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
             <div className="flex-shrink-0">
               {toCur === "EUR" ? (
                 <img
-                  src="/images/eu-flag.png"
+                  src="/images/eu-flag.png" // Path to the EU flag image
                   alt="EU Flag"
                   className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-600"
                 />
