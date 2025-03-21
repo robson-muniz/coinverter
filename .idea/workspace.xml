@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Add CurrencyNews component for displaying currency-related news">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Some minor bugs fixed, as ConvertedAmount.js flags.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DonationButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DonationButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +64,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
       </set>
     </attachedChunks>
   </component>
@@ -109,7 +106,10 @@
       <workItem from="1740576255994" duration="9000" />
       <workItem from="1741621979845" duration="780000" />
       <workItem from="1741687220915" duration="3485000" />
-      <workItem from="1741710628631" duration="2771000" />
+      <workItem from="1741710628631" duration="3284000" />
+      <workItem from="1741772831350" duration="15000" />
+      <workItem from="1741775045351" duration="2250000" />
+      <workItem from="1742474108928" duration="713000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -271,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739116267233</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Some minor bugs fixed, as ConvertedAmount.js flags.">
+      <option name="closed" value="true" />
+      <created>1741713546444</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1741713546444</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +303,7 @@
     <MESSAGE value=" improving readability and ensure that the Donation and Share buttons don’t overlap with important information" />
     <MESSAGE value="Added a save as PDF button" />
     <MESSAGE value="Micro interactions added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Micro interactions added" />
+    <MESSAGE value="Some minor bugs fixed, as ConvertedAmount.js flags." />
+    <option name="LAST_COMMIT_MESSAGE" value="Some minor bugs fixed, as ConvertedAmount.js flags." />
   </component>
 </project>
