@@ -17,7 +17,7 @@ export function ShareButton({ conversionText, isDarkMode }) {
     <motion.div
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm"
+      className="bg-white/95 dark:bg-gray-800/95 rounded-full p-2 shadow-sm backdrop-blur-sm border border-white/20 dark:border-gray-700/50"
     >
       <div className="flex gap-1">
         <FacebookShareButton
@@ -28,7 +28,7 @@ export function ShareButton({ conversionText, isDarkMode }) {
           <FacebookIcon
             size={32}
             round
-            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+            bgStyle={{ fill: isDarkMode ? '#1f2937' : '#f3f4f6' }}
           />
         </FacebookShareButton>
         <TwitterShareButton
@@ -39,7 +39,7 @@ export function ShareButton({ conversionText, isDarkMode }) {
           <TwitterIcon
             size={32}
             round
-            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+            bgStyle={{ fill: isDarkMode ? '#1f2937' : '#f3f4f6' }}
           />
         </TwitterShareButton>
         <WhatsappShareButton
@@ -50,7 +50,7 @@ export function ShareButton({ conversionText, isDarkMode }) {
           <WhatsappIcon
             size={32}
             round
-            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+            bgStyle={{ fill: isDarkMode ? '#1f2937' : '#f3f4f6' }}
           />
         </WhatsappShareButton>
       </div>

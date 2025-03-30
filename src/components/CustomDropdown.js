@@ -49,7 +49,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
   if (isLoading) {
     return (
       <div className="relative flex-1">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide">
           {label}
         </label>
         <Skeleton className="h-12" />
@@ -60,7 +60,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
   return (
     <div className="relative flex-1">
       <motion.label
-        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide"
         initial={{ y: -5, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1 }}
@@ -70,7 +70,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
 
       <motion.div
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-white flex items-center justify-between cursor-pointer`}
+        className={`w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 flex items-center justify-between cursor-pointer`}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
       >
@@ -82,7 +82,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ type: "spring", stiffness: 300 }}
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-gray-400"
+          className="h-5 w-5 text-gray-400 dark:text-gray-500"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -101,13 +101,13 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
               stiffness: 500,
               damping: 30
             }}
-            className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden max-h-96 overflow-y-auto"
+            className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden max-h-96 overflow-y-auto"
           >
-            <div className="sticky top-0 p-2 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+            <div className="sticky top-0 p-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
               <motion.input
                 type="text"
                 placeholder="Search currency..."
-                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
@@ -125,10 +125,10 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
                   animate={{
                     opacity: 1,
                     x: 0,
-                    backgroundColor: isDarkMode ? 'rgba(55, 65, 81, 0)' : 'rgba(243, 244, 246, 0)'
+                    backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0)' : 'rgba(243, 244, 246, 0)'
                   }}
                   whileHover={{
-                    backgroundColor: isDarkMode ? 'rgba(55, 65, 81, 0.5)' : 'rgba(243, 244, 246, 1)'
+                    backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.5)' : 'rgba(243, 244, 246, 1)'
                   }}
                   onClick={() => handleSelect(code)}
                   className="flex items-center gap-3 px-4 py-3 cursor-pointer"

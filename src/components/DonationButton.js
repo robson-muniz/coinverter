@@ -13,7 +13,7 @@ export function DonationButton({ isDarkMode }) {
         scale: 0.98,
         transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
-      className="bg-white/90 dark:bg-gray-800/90 rounded-full shadow-sm backdrop-blur-sm overflow-hidden border border-white/20 dark:border-gray-700/50"
+      className="bg-white/95 dark:bg-gray-800/95 rounded-full shadow-sm backdrop-blur-sm overflow-hidden border border-white/20 dark:border-gray-700/50"
     >
       <a
         href="https://www.paypal.com/donate/?hosted_button_id=UA43BU97NCT7A"
@@ -34,6 +34,7 @@ export function DonationButton({ isDarkMode }) {
           initial={{ opacity: 0, x: -5 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
+          className="font-medium tracking-wide"
         >
           Donate
         </motion.span>

@@ -118,7 +118,7 @@ function App() {
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300"
+    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300 font-sans"
          style={{
            backgroundImage: currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
            backgroundSize: "cover",
@@ -131,7 +131,7 @@ function App() {
 
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
-        className="fixed top-6 right-6 p-2 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-sm z-50"
+        className="fixed top-6 right-6 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-sm z-50 hover:shadow-md transition-all duration-300"
         aria-label="Toggle dark mode"
       >
         {isDarkMode ? "☀️" : "🌙"}
@@ -144,10 +144,10 @@ function App() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="relative w-full max-w-md mx-auto z-10"
         >
-          <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/20">
+          <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/20">
             <div className="p-6 pb-0">
               <motion.h1
-                className="text-2xl font-semibold text-gray-900 dark:text-white text-center"
+                className="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center tracking-tight"
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
@@ -155,7 +155,7 @@ function App() {
                 Currency Converter
               </motion.h1>
               <motion.p
-                className="text-sm text-gray-500 dark:text-gray-400 text-center mt-1"
+                className="text-sm text-gray-600 dark:text-gray-400 text-center mt-1 font-medium tracking-wide"
                 initial={{ y: -5, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -209,7 +209,7 @@ function App() {
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-6 flex items-center justify-center gap-2"
+                      className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 mt-6 flex items-center justify-center gap-2 font-medium tracking-wide"
                       disabled={loading}
                     >
                       {loading ? "Generating PDF..." : "Save as PDF"}
@@ -219,7 +219,7 @@ function App() {
               )}
             </div>
 
-            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 rounded-b-2xl">
+            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/70 border-t border-gray-100 dark:border-gray-800 rounded-b-2xl">
               <Footer />
             </div>
           </div>

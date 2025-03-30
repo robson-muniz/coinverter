@@ -12,7 +12,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
 
   return (
     <motion.div
-      className="p-5 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl mb-6 border border-white/20"
+      className="p-5 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl mb-6 border border-gray-100 dark:border-gray-700 shadow-sm"
       initial={{ opacity: 0, y: 10 }}
       animate={{
         opacity: isLoading ? 0.7 : 1,
@@ -25,7 +25,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
       }}
     >
       <motion.p
-        className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3"
+        className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 tracking-wider uppercase"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
@@ -51,7 +51,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                   transition={{ type: "spring", stiffness: 400 }}
                   src="eu-flag.png"
                   alt="EU Flag"
-                  className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 object-cover"
+                  className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
                 />
               ) : (
                 <motion.div
@@ -62,13 +62,13 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                   <Flag
                     country={currencyFlags[toCur]}
                     size={32}
-                    className="rounded-full border border-gray-200 dark:border-gray-700"
+                    className="rounded-full border border-gray-200 dark:border-gray-600"
                   />
                 </motion.div>
               )}
             </div>
             <motion.span
-              className="ml-3 text-2xl font-semibold text-gray-900 dark:text-white"
+              className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100"
               initial={{ x: -5 }}
               animate={{ x: 0 }}
               transition={{ type: "spring", stiffness: 300 }}

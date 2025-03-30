@@ -5,24 +5,31 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#ffffff",
-    padding: 20,
+    padding: 40,
+    fontFamily: "Helvetica"
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 30,
     textAlign: "center",
+    color: "#111827"
   },
   section: {
-    marginBottom: 10,
+    marginBottom: 15,
+    paddingBottom: 15,
+    borderBottom: "1px solid #e5e7eb"
   },
   label: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: "semibold",
     marginBottom: 5,
+    color: "#4b5563"
   },
   value: {
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: "medium",
+    color: "#111827"
   },
 });
 

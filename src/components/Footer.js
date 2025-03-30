@@ -6,7 +6,7 @@ export function Footer() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 1 }}
-      className="text-center text-xs text-gray-500 dark:text-gray-400"
+      className="text-center text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide"
     >
       Made with <span className="text-red-500">♥</span> by Robson Muniz
     </motion.footer>

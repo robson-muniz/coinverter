@@ -6,7 +6,7 @@ export function SwapButton({ onClick, isLoading }) {
     <motion.button
       onClick={onClick}
       disabled={isLoading}
-      className="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed"
       whileHover={{
         scale: 1.05,
         rotate: 5,
