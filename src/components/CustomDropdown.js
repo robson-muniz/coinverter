@@ -1,66 +1,147 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Flag from "react-flagkit";
+import { Skeleton } from './Skeleton';
 
-export function CustomDropdown({ value, onChange, options, isLoading, label }) {
+export function CustomDropdown({ value, onChange, options, isLoading, label, isDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSelect = (code) => {
     onChange(code);
     setIsOpen(false);
+    setSearchTerm("");
   };
 
-  return (
-    <div className="w-full sm:flex-1 relative">
-      <label className="block text-gray-700 text-sm font-medium mb-2 dark:text-gray-300">
-        {label}
-      </label>
-      <div
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-2 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 disabled:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white cursor-pointer"
+  const filteredCurrencies = Object.entries(options)
+    .filter(([code]) =>
+      code.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  const renderFlag = (code) => {
+    if (code === "EUR") {
+      return (
+        <motion.img
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 400 }}
+          src="eu-flag.png"
+          alt="EU Flag"
+          className="w-6 h-6 rounded-full object-cover"
+        />
+      );
+    }
+    return (
+      <motion.div
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 400 }}
       >
-        <div className="flex items-center gap-2">
-          {value === "EUR" ? (
-            <img
-              src="/eu-flag.png" // Changed from /images/eu-flag.png
-              alt="EU Flag"
-              className="w-6 h-6"
-            />
-          ) : (
-            <Flag country={options[value]} size={16} />
-          )}
-          <span>{value}</span>
-        </div>
+        <Flag
+          country={options[code]}
+          size={24}
+          className="rounded-full"
+        />
+      </motion.div>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <div className="relative flex-1">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          {label}
+        </label>
+        <Skeleton className="h-12" />
       </div>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute z-10 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg"
+    );
+  }
+
+  return (
+    <div className="relative flex-1">
+      <motion.label
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        initial={{ y: -5, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        {label}
+      </motion.label>
+
+      <motion.div
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-white flex items-center justify-between cursor-pointer`}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+      >
+        <div className="flex items-center gap-3">
+          {renderFlag(value)}
+          <span className="font-medium">{value}</span>
+        </div>
+        <motion.svg
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ type: "spring", stiffness: 300 }}
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 text-gray-400"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
-          {Object.entries(options).map(([code, countryCode]) => (
-            <motion.div
-              key={code}
-              whileHover={{ scale: 1.02, backgroundColor: "#f3f4f6" }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => handleSelect(code)}
-              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            >
-              {code === "EUR" ? (
-                <img
-                  src="/eu-flag.png" // Changed from /images/eu-flag.png
-                  alt="EU Flag"
-                  className="w-6 h-6"
-                />
-              ) : (
-                <Flag country={countryCode} size={16} />
-              )}
-              <span>{code}</span>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
+          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+        </motion.svg>
+      </motion.div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -5, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 30
+            }}
+            className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden max-h-96 overflow-y-auto"
+          >
+            <div className="sticky top-0 p-2 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+              <motion.input
+                type="text"
+                placeholder="Search currency..."
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              />
+            </div>
+
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {filteredCurrencies.map(([code, countryCode]) => (
+                <motion.div
+                  key={code}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    backgroundColor: isDarkMode ? 'rgba(55, 65, 81, 0)' : 'rgba(243, 244, 246, 0)'
+                  }}
+                  whileHover={{
+                    backgroundColor: isDarkMode ? 'rgba(55, 65, 81, 0.5)' : 'rgba(243, 244, 246, 1)'
+                  }}
+                  onClick={() => handleSelect(code)}
+                  className="flex items-center gap-3 px-4 py-3 cursor-pointer"
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  {renderFlag(code)}
+                  <span className="font-medium">{code}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

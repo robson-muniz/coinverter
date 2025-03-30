@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Some minor bugs fixed, as ConvertedAmount.js flags.">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Fixed EUR button and also the currencyBackgroundImages">
+      <change afterPath="$PROJECT_DIR$/src/components/ErrorBoundary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LoadingSpinner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Skeleton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/service-worker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/currencies.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fonts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DonationButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DonationButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SwapButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SwapButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -43,20 +58,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/utils" />
@@ -111,7 +127,8 @@
       <workItem from="1741772831350" duration="15000" />
       <workItem from="1741775045351" duration="2250000" />
       <workItem from="1742474108928" duration="713000" />
-      <workItem from="1743326382179" duration="1434000" />
+      <workItem from="1743326382179" duration="4988000" />
+      <workItem from="1743331992372" duration="9879000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -281,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741713546444</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed EUR button and also the currencyBackgroundImages">
+      <option name="closed" value="true" />
+      <created>1743328091901</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1743328091901</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,6 +331,7 @@
     <MESSAGE value="Added a save as PDF button" />
     <MESSAGE value="Micro interactions added" />
     <MESSAGE value="Some minor bugs fixed, as ConvertedAmount.js flags." />
-    <option name="LAST_COMMIT_MESSAGE" value="Some minor bugs fixed, as ConvertedAmount.js flags." />
+    <MESSAGE value="Fixed EUR button and also the currencyBackgroundImages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed EUR button and also the currencyBackgroundImages" />
   </component>
 </project>

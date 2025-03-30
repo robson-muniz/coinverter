@@ -1,96 +1,88 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // For animations
-import toast, { Toaster } from 'react-hot-toast'; // For toast notifications
-import useSound from "use-sound"; // For playing sounds
-import { useDebounce } from './hooks/useDebounce'; // Custom hook for debouncing
-import { CurrencyInput } from './components/CurrencyInput'; // Input field for amount
-import { CustomDropdown } from './components/CustomDropdown'; // Dropdown for currency selection
-import { SwapButton } from './components/SwapButton'; // Button to swap currencies
-import { ConvertedAmount } from './components/ConvertedAmount'; // Display converted amount
-import { Footer } from './components/Footer'; // Footer component
-import { DonationButton } from './components/DonationButton'; // Donation button
-import { ShareButton } from './components/ShareButton'; // Share button
-import { initGA, trackPageView, trackEvent } from './utils/analytics'; // Google Analytics utilities
-import { PDFDownloadLink } from "@react-pdf/renderer"; // For generating PDFs
-import { PDFDocument } from './components/PDFDocument'; // PDF document component
-import swapSound from './sounds/swap.wav'; // Sound for swapping currencies
-import successSound from './sounds/success.wav'; // Sound for successful conversion
+import { motion, AnimatePresence } from "framer-motion";
+import toast, { Toaster } from 'react-hot-toast';
+import useSound from "use-sound";
+import { useDebounce } from './hooks/useDebounce';
+import { CurrencyInput } from './components/CurrencyInput';
+import { CustomDropdown } from './components/CustomDropdown';
+import { SwapButton } from './components/SwapButton';
+import { ConvertedAmount } from './components/ConvertedAmount';
+import { Footer } from './components/Footer';
+import { DonationButton } from './components/DonationButton';
+import { ShareButton } from './components/ShareButton';
+import { initGA, trackPageView, trackEvent } from './utils/analytics';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDocument } from './components/PDFDocument';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import swapSound from './sounds/swap.wav';
+import successSound from './sounds/success.wav';
 
 function App() {
-  // State for the amount to convert
   const [amount, setAmount] = useState("");
-  // State for the "from" currency
   const [fromCur, setFromCur] = useState("EUR");
-  // State for the "to" currency
   const [toCur, setToCur] = useState("BRL");
-  // State for the converted amount
   const [converted, setConverted] = useState("");
-  // State to track loading status
   const [isLoading, setIsLoading] = useState(false);
-  // State for dark mode
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Mapping of currency codes to country codes for flag display
   const currencyFlags = {
-    USD: "US",
-    EUR: "EU",
-    GBP: "GB",
-    JPY: "JP",
-    CNY: "CN",
-    AUD: "AU",
-    CAD: "CA",
-    CHF: "CH",
-    INR: "IN",
-    BRL: "BR",
+    USD: "US", EUR: "EU", GBP: "GB", JPY: "JP",
+    AUD: "AU", CAD: "CA", CHF: "CH", CNY: "CN",
+    INR: "IN", BRL: "BR", MXN: "MX", RUB: "RU",
+    ZAR: "ZA", KRW: "KR", SGD: "SG", NZD: "NZ"
   };
 
-  // Background images for each currency
   const currencyBackgroundImages = {
-    USD: "url('/images/us-flag.png')",
+    USD: "url('/images/us-flag.jpg')",
     EUR: "url('/images/europe-flag.jpg')",
     GBP: "url('/images/uk-flag.png')",
     JPY: "url('/images/japan-flag.png')",
-    CNY: "url('/images/china-flag.png')",
     AUD: "url('/images/australia-flag.png')",
     CAD: "url('/images/canada-flag.png')",
     CHF: "url('/images/switzerland-flag.png')",
+    CNY: "url('/images/china-flag.png')",
     INR: "url('/images/india-flag.jpg')",
     BRL: "url('/images/brazil-flag.jpg')",
-    DEFAULT: "url('/images/default-flag.png')",
+    MXN: "url('/images/mexico-flag.png')",
+    RUB: "url('/images/russia-flag.png')",
+    ZAR: "url('/images/south-africa.png')",
+    KRW: "url('/images/south-korea.png')",
+    SGD: "url('/images/singapore-flag.png')",
+    NZD: "url('/images/new-zealand-flag.png')",
+    DEFAULT: "url('/images/default-flag.jpg')"
   };
 
-  // Initialize Google Analytics on component mount
   useEffect(() => {
     initGA();
     trackPageView(window.location.pathname + window.location.search);
+
+    // Preload sounds
+    const swapAudio = new Audio(swapSound);
+    const successAudio = new Audio(successSound);
+    swapAudio.load();
+    successAudio.load();
   }, []);
 
-  // Initialize useSound for swap and success sounds
-  const [playSwap] = useSound(swapSound);
-  const [playSuccess] = useSound(successSound);
+  const [playSwap] = useSound(swapSound, { volume: 0.5 });
+  const [playSuccess] = useSound(successSound, { volume: 0.3 });
 
-  // Toggle dark mode
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
-  // Debounce the amount input to avoid excessive API calls
   const { debouncedValue: debouncedAmount, isTyping } = useDebounce(amount, 1000);
 
-  // Function to swap currencies
   const swapCurrencies = () => {
-    playSwap(); // Play swap sound
+    playSwap();
     const temp = fromCur;
     setFromCur(toCur);
     setToCur(temp);
-    toast.success('Currencies swapped!');
     trackEvent('Currency', 'Swap', `From ${temp} to ${toCur}`);
   };
 
-  // Fetch conversion data when debouncedAmount, fromCur, or toCur changes
   useEffect(() => {
     const convert = async () => {
-      if (fromCur === toCur) return;
+      if (fromCur === toCur) return setConverted(amount);
 
       setIsLoading(true);
       try {
@@ -100,8 +92,7 @@ function App() {
         if (!resp.ok) throw new Error("Failed to fetch conversion data");
         const data = await resp.json();
         setConverted(data.rates[toCur]);
-        playSuccess(); // Play success sound
-        toast.success('Conversion updated!');
+        playSuccess();
       } catch (error) {
         console.error("Error fetching conversion data:", error);
         toast.error('Failed to convert. Please try again.');
@@ -110,133 +101,161 @@ function App() {
       }
     };
 
-    if (debouncedAmount) {
+    if (debouncedAmount && !isNaN(debouncedAmount)) {
       convert();
+    } else {
+      setConverted("");
     }
   }, [debouncedAmount, fromCur, toCur, playSuccess]);
 
-  // Generate the conversion text for sharing
+  useEffect(() => {
+    Object.values(currencyBackgroundImages).forEach(img => {
+      const image = new Image();
+      image.src = img.replace("url('", "").replace("')", "");
+    });
+  }, []);
+
   const conversionText = `I just converted ${amount} ${fromCur} to ${converted} ${toCur} using this awesome currency converter!`;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center p-4 relative"
-      style={{
-        backgroundImage: currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        transition: "background-image 0.5s ease-in-out",
-      }}
+    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300"
+         style={{
+           backgroundImage: currencyBackgroundImages[fromCur] || currencyBackgroundImages.DEFAULT,
+           backgroundSize: "cover",
+           backgroundPosition: "center",
+           backgroundAttachment: "fixed",
+           transition: "background-image 0.5s ease-in-out"
+         }}
     >
-      {/* Dark overlay for better readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-30 dark:bg-opacity-50"></div>
 
-      {/* Share and Donation Buttons */}
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
-        <ShareButton conversionText={conversionText} />
-        <DonationButton />
+      <button
+        onClick={() => setIsDarkMode(!isDarkMode)}
+        className="fixed top-6 right-6 p-2 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-sm z-50"
+        aria-label="Toggle dark mode"
+      >
+        {isDarkMode ? "☀️" : "🌙"}
+      </button>
+
+      <ErrorBoundary>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="relative w-full max-w-md mx-auto z-10"
+        >
+          <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/20">
+            <div className="p-6 pb-0">
+              <motion.h1
+                className="text-2xl font-semibold text-gray-900 dark:text-white text-center"
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                Currency Converter
+              </motion.h1>
+              <motion.p
+                className="text-sm text-gray-500 dark:text-gray-400 text-center mt-1"
+                initial={{ y: -5, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                Real-time exchange rates
+              </motion.p>
+            </div>
+
+            <div className="p-6 pt-4">
+              <CurrencyInput value={amount} onChange={setAmount} isLoading={isLoading} />
+
+              <div className="flex items-center justify-between my-4">
+                <CustomDropdown
+                  value={fromCur}
+                  onChange={setFromCur}
+                  options={currencyFlags}
+                  isLoading={isLoading}
+                  label="From"
+                  isDarkMode={isDarkMode}
+                />
+
+                <div className="mx-2">
+                  <SwapButton onClick={swapCurrencies} isLoading={isLoading} />
+                </div>
+
+                <CustomDropdown
+                  value={toCur}
+                  onChange={setToCur}
+                  options={currencyFlags}
+                  isLoading={isLoading}
+                  label="To"
+                  isDarkMode={isDarkMode}
+                />
+              </div>
+
+              <ConvertedAmount
+                converted={converted}
+                isTyping={isTyping}
+                isLoading={isLoading}
+                fromCur={fromCur}
+                toCur={toCur}
+                isDarkMode={isDarkMode}
+              />
+
+              {converted && (
+                <PDFDownloadLink
+                  document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
+                  fileName="conversion_result.pdf"
+                >
+                  {({ loading }) => (
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-6 flex items-center justify-center gap-2"
+                      disabled={loading}
+                    >
+                      {loading ? "Generating PDF..." : "Save as PDF"}
+                    </motion.button>
+                  )}
+                </PDFDownloadLink>
+              )}
+            </div>
+
+            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 rounded-b-2xl">
+              <Footer />
+            </div>
+          </div>
+        </motion.div>
+      </ErrorBoundary>
+
+      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-50">
+        <ShareButton conversionText={conversionText} isDarkMode={isDarkMode} />
+        <DonationButton isDarkMode={isDarkMode} />
       </div>
 
-      {/* Dark mode toggle button */}
-      <motion.button
-        aria-label="Toggle dark mode"
-        onClick={() => setIsDarkMode(!isDarkMode)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ rotate: isDarkMode ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full z-50"
-      >
-        {isDarkMode ? "🌙" : "☀️"}
-      </motion.button>
-
-      {/* Loading spinner */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+            className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-40"
           >
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "linear",
+                type: "spring",
+                damping: 10
+              }}
+              className="w-12 h-12 border-4 border-white border-t-transparent rounded-full"
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Toast notifications */}
-      <Toaster position="top-right" />
-
-      {/* Main content card */}
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="relative bg-gradient-to-br from-blue-50 to-purple-50 shadow-xl rounded-2xl p-6 sm:p-8 md:p-10 w-full max-w-lg mx-auto backdrop-blur-sm bg-opacity-95 dark:from-gray-800 dark:to-gray-900 dark:text-white"
-      >
-        {/* App title */}
-        <motion.h1
-          initial={{ y: -20 }}
-          animate={{ y: 0 }}
-          className="text-2xl sm:text-4xl font-bold text-center mb-4 sm:mb-6 dark:text-white"
-        >
-          Currency Converter
-        </motion.h1>
-
-        {/* Currency input field */}
-        <CurrencyInput value={amount} onChange={setAmount} isLoading={isLoading} />
-
-        {/* Currency selection and swap button */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center mb-6">
-          <CustomDropdown
-            value={fromCur}
-            onChange={setFromCur}
-            options={currencyFlags}
-            isLoading={isLoading}
-            label="From"
-          />
-          <SwapButton onClick={swapCurrencies} isLoading={isLoading} />
-          <CustomDropdown
-            value={toCur}
-            onChange={setToCur}
-            options={currencyFlags}
-            isLoading={isLoading}
-            label="To"
-          />
-        </div>
-
-        {/* Converted amount display */}
-        <ConvertedAmount converted={converted} isTyping={isTyping} isLoading={isLoading} fromCur={fromCur} toCur={toCur} />
-
-        {/* Save as PDF button */}
-        {converted && (
-          <PDFDownloadLink
-            document={<PDFDocument amount={amount} fromCur={fromCur} toCur={toCur} converted={converted} />}
-            fileName="conversion_result.pdf"
-          >
-            {({ loading }) => (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400 mt-6"
-                disabled={loading}
-              >
-                {loading ? "Generating PDF..." : "Save as PDF"}
-              </motion.button>
-            )}
-          </PDFDownloadLink>
-        )}
-
-        {/* Footer */}
-        <Footer />
-      </motion.div>
-    </motion.div>
+      <Toaster position="top-center" />
+    </div>
   );
 }
 

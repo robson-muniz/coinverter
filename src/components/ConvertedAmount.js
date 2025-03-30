@@ -1,140 +1,83 @@
 import { motion } from "framer-motion";
 import Flag from "react-flagkit";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { trackEvent } from '../utils/analytics';
+import { Skeleton } from './Skeleton';
 
-export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur }) {
-  // Mapping of currency codes to country codes for flag display
+export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur, isDarkMode }) {
   const currencyFlags = {
-    USD: "US", // United States
-    EUR: "EU", // European Union (custom flag)
-    GBP: "GB", // United Kingdom
-    JPY: "JP", // Japan
-    CNY: "CN", // China
-    AUD: "AU", // Australia
-    CAD: "CA", // Canada
-    CHF: "CH", // Switzerland
-    INR: "IN", // India
-    BRL: "BR", // Brazil
-    // New currencies
-    NZD: "NZ", // New Zealand
-    SEK: "SE", // Sweden
-    KRW: "KR", // South Korea
-    SGD: "SG", // Singapore
-    HKD: "HK", // Hong Kong
-    NOK: "NO", // Norway
-    MXN: "MX", // Mexico
-    ZAR: "ZA", // South Africa
-    TRY: "TR", // Turkey
-    RUB: "RU", // Russia
-  };
-
-  // State to track if the converted amount has been copied to the clipboard
-  const [isCopied, setIsCopied] = useState(false);
-
-  // Function to copy the converted amount to the clipboard
-  const handleCopyToClipboard = async () => {
-    if (converted) {
-      try {
-        await navigator.clipboard.writeText(`${converted} ${toCur}`);
-        setIsCopied(true);
-        toast.success("Copied to clipboard!");
-        trackEvent('Conversion', 'Copy', `${converted} ${toCur}`);
-      } catch (err) {
-        toast.error("Failed to copy text");
-        console.error("Failed to copy text: ", err);
-      } finally {
-        // Reset the "Copied" state after 1.5 seconds
-        setTimeout(() => setIsCopied(false), 1500);
-      }
-    }
+    USD: "US", EUR: "EU", GBP: "GB", JPY: "JP",
+    AUD: "AU", CAD: "CA", CHF: "CH", CNY: "CN",
+    INR: "IN", BRL: "BR", MXN: "MX", RUB: "RU",
+    ZAR: "ZA", KRW: "KR", SGD: "SG", NZD: "NZ"
   };
 
   return (
     <motion.div
-      className="p-4 sm:p-6 bg-white rounded-lg shadow-md text-center dark:bg-gray-800"
-      animate={{ opacity: isLoading ? 0.7 : 1 }}
-      transition={{ duration: 0.3 }}
+      className="p-5 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl mb-6 border border-white/20"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{
+        opacity: isLoading ? 0.7 : 1,
+        y: 0
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 20
+      }}
     >
-      {/* Section title */}
-      <p className="text-gray-600 text-lg font-medium mb-4 dark:text-gray-300">Converted Amount</p>
-
-      <motion.div
-        className="flex items-center justify-center gap-4"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+      <motion.p
+        className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
       >
-        {/* Display a message if the user is typing */}
-        {isTyping ? (
-          <span className="text-blue-500 text-lg">Will convert in a moment...</span>
-        ) : isLoading ? (
-          // Display a loading message if the conversion is in progress
-          <span className="inline-block animate-pulse text-lg">Converting...</span>
-        ) : fromCur === toCur ? (
-          // Display a message if the "from" and "to" currencies are the same
-          <span className="text-lg">Please select different currencies</span>
-        ) : (
-          // Display the converted amount and flag
-          <>
+        Converted Amount
+      </motion.p>
+
+      {isLoading || isTyping ? (
+        <Skeleton className="h-12" />
+      ) : (
+        <motion.div
+          className="flex items-center justify-between"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="flex items-center">
             <div className="flex-shrink-0">
-              {/* Display the EU flag image for EUR, otherwise use react-flagkit */}
               {toCur === "EUR" ? (
-                <img
-                  src="/images/eu-flag.png" // Ensure this path is correct
+                <motion.img
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                  src="eu-flag.png"
                   alt="EU Flag"
-                  className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-600"
+                  className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 object-cover"
                 />
               ) : (
-                <Flag
-                  country={currencyFlags[toCur]} // Get the country code from the mapping
-                  size={32}
-                  className="rounded-full border-2 border-gray-200 dark:border-gray-600"
-                />
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <Flag
+                    country={currencyFlags[toCur]}
+                    size={32}
+                    className="rounded-full border border-gray-200 dark:border-gray-700"
+                  />
+                </motion.div>
               )}
             </div>
-
-            {/* Display the converted amount */}
-            <span className="text-3xl font-semibold text-blue-600 dark:text-blue-400">
+            <motion.span
+              className="ml-3 text-2xl font-semibold text-gray-900 dark:text-white"
+              initial={{ x: -5 }}
+              animate={{ x: 0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               {`${converted || 0} ${toCur}`}
-            </span>
-
-            {/* Display the copy-to-clipboard button */}
-            {converted && !isTyping && !isLoading && fromCur !== toCur && (
-              <motion.div
-                onClick={handleCopyToClipboard}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="cursor-pointer p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                title="Copy to Clipboard"
-              >
-                {isCopied ? (
-                  // Display a checkmark if the text was copied
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-green-500"
-                  >
-                    ✔️
-                  </motion.span>
-                ) : (
-                  // Display a clipboard icon if the text is not copied
-                  <motion.span
-                    initial={{ opacity: 1, scale: 1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-gray-500 dark:text-gray-400"
-                  >
-                    📄
-                  </motion.span>
-                )}
-              </motion.div>
-            )}
-          </>
-        )}
-      </motion.div>
+            </motion.span>
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 }

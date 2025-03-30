@@ -1,44 +1,30 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export function DonationButton() {
+export function DonationButton({ isDarkMode }) {
   return (
-    <div className="flex flex-col gap-2">
-      {/* Donate via Wise */}
-      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <a
-          href="https://wise.com/pay/me/joaorobsonm" // Replace with your Wise donation link
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm"
+    >
+      <a
+        href="https://www.paypal.com/donate/?hosted_button_id=UA43BU97NCT7A" // Replace with your actual PayPal button ID
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="currentColor"
         >
-          <img
-            src="/images/wise-logo.png" // Local Wise logo
-            alt="Wise"
-            className="w-6 h-6"
-          />
-          <span className="hidden sm:inline">Donate via Wise</span>
-          <span className="sm:hidden">Wise</span>
-        </a>
-      </motion.div>
-
-      {/* Donate via PayPal */}
-      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <a
-          href="https://www.paypal.com/paypalme/robsonmuniz" // Replace with your PayPal donation link
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
-        >
-          <img
-            src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" // PayPal logo
-            alt="PayPal"
-            className="w-6 h-6"
-          />
-          <span className="hidden sm:inline">Donate via PayPal</span>
-          <span className="sm:hidden">PayPal</span>
-        </a>
-      </motion.div>
-    </div>
+          <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+          <path d="M7.5 11.5v-7h1v7h-1zm3.5-4v-3h1v3h-1zm3.5 2v-5h1v5h-1zm3.5 4v-9h1v9h-1z"/>
+        </svg>
+        <span>Donate</span>
+      </a>
+    </motion.div>
   );
 }

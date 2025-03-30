@@ -9,27 +9,51 @@ import {
 } from "react-share";
 import { motion } from "framer-motion";
 
-export function ShareButton({ conversionText }) {
+export function ShareButton({ conversionText, isDarkMode }) {
   const shareUrl = window.location.href;
   const title = "Check out this currency converter!";
 
   return (
-    <div className="flex gap-2">
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-        <FacebookShareButton url={shareUrl} quote={conversionText || title}>
-          <FacebookIcon size={32} round />
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm"
+    >
+      <div className="flex gap-1">
+        <FacebookShareButton
+          url={shareUrl}
+          quote={conversionText || title}
+          className="focus:outline-none"
+        >
+          <FacebookIcon
+            size={32}
+            round
+            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+          />
         </FacebookShareButton>
-      </motion.div>
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-        <TwitterShareButton url={shareUrl} title={conversionText || title}>
-          <TwitterIcon size={32} round />
+        <TwitterShareButton
+          url={shareUrl}
+          title={conversionText || title}
+          className="focus:outline-none"
+        >
+          <TwitterIcon
+            size={32}
+            round
+            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+          />
         </TwitterShareButton>
-      </motion.div>
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-        <WhatsappShareButton url={shareUrl} title={conversionText || title}>
-          <WhatsappIcon size={32} round />
+        <WhatsappShareButton
+          url={shareUrl}
+          title={conversionText || title}
+          className="focus:outline-none"
+        >
+          <WhatsappIcon
+            size={32}
+            round
+            bgStyle={{ fill: isDarkMode ? '#374151' : '#f3f4f6' }}
+          />
         </WhatsappShareButton>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
