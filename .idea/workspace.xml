@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Some minor bugs fixed, as ConvertedAmount.js flags.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +111,7 @@
       <workItem from="1741772831350" duration="15000" />
       <workItem from="1741775045351" duration="2250000" />
       <workItem from="1742474108928" duration="713000" />
+      <workItem from="1743326382179" duration="1434000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />

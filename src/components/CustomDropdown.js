@@ -22,7 +22,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
         <div className="flex items-center gap-2">
           {value === "EUR" ? (
             <img
-              src="/images/eu-flag.png" // Path to the EU flag image
+              src="/eu-flag.png" // Changed from /images/eu-flag.png
               alt="EU Flag"
               className="w-6 h-6"
             />
@@ -49,7 +49,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label }) {
             >
               {code === "EUR" ? (
                 <img
-                  src="/images/eu-flag.png" // Path to the EU flag image
+                  src="/eu-flag.png" // Changed from /images/eu-flag.png
                   alt="EU Flag"
                   className="w-6 h-6"
                 />
