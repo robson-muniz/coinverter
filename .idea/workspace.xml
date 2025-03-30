@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Fixed EUR button and also the currencyBackgroundImages">
-      <change afterPath="$PROJECT_DIR$/src/components/ErrorBoundary.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LoadingSpinner.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Skeleton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/service-worker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/currencies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/manifest.json" afterDir="false" />
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="New minimalist style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DonationButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DonationButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SwapButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SwapButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +114,7 @@
       <workItem from="1741775045351" duration="2250000" />
       <workItem from="1742474108928" duration="713000" />
       <workItem from="1743326382179" duration="4988000" />
-      <workItem from="1743331992372" duration="9879000" />
+      <workItem from="1743331992372" duration="10906000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -306,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743328091901</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="New minimalist style">
+      <option name="closed" value="true" />
+      <created>1743345169028</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1743345169028</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,6 +326,7 @@
     <MESSAGE value="Micro interactions added" />
     <MESSAGE value="Some minor bugs fixed, as ConvertedAmount.js flags." />
     <MESSAGE value="Fixed EUR button and also the currencyBackgroundImages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed EUR button and also the currencyBackgroundImages" />
+    <MESSAGE value="New minimalist style" />
+    <option name="LAST_COMMIT_MESSAGE" value="New minimalist style" />
   </component>
 </project>
