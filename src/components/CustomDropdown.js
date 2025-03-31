@@ -13,11 +13,11 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
     setSearchTerm("");
   };
 
+  // Filter currencies based on search input
   const filteredCurrencies = Object.entries(options)
-    .filter(([code]) =>
-      code.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    .filter(([code]) => code.toLowerCase().includes(searchTerm.toLowerCase()));
 
+  // Render flag with proper animation
   const renderFlag = (code) => {
     if (code === "EUR") {
       return (
@@ -37,15 +37,12 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 400 }}
       >
-        <Flag
-          country={options[code]}
-          size={24}
-          className="rounded-full"
-        />
+        <Flag country={options[code]} size={24} className="rounded-full" />
       </motion.div>
     );
   };
 
+  // Loading state
   if (isLoading) {
     return (
       <div className="relative flex-1">
@@ -59,6 +56,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
 
   return (
     <div className="relative flex-1">
+      {/* Dropdown label with animation */}
       <motion.label
         className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide"
         initial={{ y: -5, opacity: 0 }}
@@ -68,9 +66,10 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
         {label}
       </motion.label>
 
+      {/* Main dropdown button */}
       <motion.div
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-4 py-3 border border-gray-200/70 dark:border-gray-700/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-transparent dark:bg-gray-800/80 dark:text-gray-100 flex items-center justify-between cursor-pointer backdrop-blur-sm`}
+        className={`w-full px-4 py-3 border border-gray-200/70 dark:border-gray-700/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-transparent dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 flex items-center justify-between cursor-pointer backdrop-blur-sm`}
         whileHover={{
           scale: 1.01,
           backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.7)' : 'rgba(255, 255, 255, 0.9)'
@@ -79,7 +78,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
       >
         <div className="flex items-center gap-3">
           {renderFlag(value)}
-          <span className="font-medium">{value}</span>
+          <span className="font-medium">{value}</span> {/* Explicit dark mode text color */}
         </div>
         <motion.svg
           animate={{ rotate: isOpen ? 180 : 0 }}
@@ -93,6 +92,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
         </motion.svg>
       </motion.div>
 
+      {/* Dropdown menu with animation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -106,11 +106,12 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
             }}
             className="absolute z-20 mt-1 w-full bg-white/95 dark:bg-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-xl overflow-hidden max-h-96 overflow-y-auto backdrop-blur-lg"
           >
+            {/* Search input */}
             <div className="sticky top-0 p-2 bg-white/95 dark:bg-gray-800/95 border-b border-gray-200/50 dark:border-gray-700/50">
               <motion.input
                 type="text"
                 placeholder="Search currency..."
-                className="w-full px-3 py-2 border border-gray-200/50 dark:border-gray-700/50 rounded-lg dark:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium backdrop-blur-sm"
+                className="w-full px-3 py-2 border border-gray-200/50 dark:border-gray-700/50 rounded-lg dark:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium backdrop-blur-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
@@ -120,6 +121,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
               />
             </div>
 
+            {/* Currency list */}
             <div className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
               {filteredCurrencies.map(([code, countryCode]) => (
                 <motion.div
@@ -134,7 +136,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
                     backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.5)' : 'rgba(243, 244, 246, 0.9)'
                   }}
                   onClick={() => handleSelect(code)}
-                  className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200"
+                  className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200 text-gray-900 dark:text-gray-100" // Fixed text color
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   {renderFlag(code)}

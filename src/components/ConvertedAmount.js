@@ -3,6 +3,7 @@ import Flag from "react-flagkit";
 import { Skeleton } from './Skeleton';
 
 export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur, isDarkMode }) {
+  // Currency flag mapping
   const currencyFlags = {
     USD: "US", EUR: "EU", GBP: "GB", JPY: "JP",
     AUD: "AU", CAD: "CA", CHF: "CH", CNY: "CN",
@@ -24,6 +25,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
         damping: 20
       }}
     >
+      {/* Section title */}
       <motion.p
         className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 tracking-wider uppercase"
         initial={{ opacity: 0 }}
@@ -33,6 +35,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
         Converted Amount
       </motion.p>
 
+      {/* Loading/typing state */}
       {isLoading || isTyping ? (
         <Skeleton className="h-12 rounded-lg" />
       ) : (
@@ -67,6 +70,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                 </motion.div>
               )}
             </div>
+            {/* Converted amount with gradient text (works in both modes) */}
             <motion.span
               className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent"
               initial={{ x: -5 }}
