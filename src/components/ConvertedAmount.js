@@ -12,7 +12,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
 
   return (
     <motion.div
-      className="p-5 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl mb-6 border border-gray-100 dark:border-gray-700 shadow-sm"
+      className="p-5 bg-gradient-to-br from-white/95 to-white/90 dark:from-gray-800/95 dark:to-gray-800/90 backdrop-blur-sm rounded-xl mb-6 border border-white/40 dark:border-gray-700/40 shadow-sm"
       initial={{ opacity: 0, y: 10 }}
       animate={{
         opacity: isLoading ? 0.7 : 1,
@@ -34,7 +34,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
       </motion.p>
 
       {isLoading || isTyping ? (
-        <Skeleton className="h-12" />
+        <Skeleton className="h-12 rounded-lg" />
       ) : (
         <motion.div
           className="flex items-center justify-between"
@@ -51,7 +51,7 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                   transition={{ type: "spring", stiffness: 400 }}
                   src="eu-flag.png"
                   alt="EU Flag"
-                  className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
+                  className="w-9 h-9 rounded-full border-2 border-white/50 dark:border-gray-600/50 object-cover shadow-sm"
                 />
               ) : (
                 <motion.div
@@ -61,19 +61,19 @@ export function ConvertedAmount({ converted, isTyping, isLoading, fromCur, toCur
                 >
                   <Flag
                     country={currencyFlags[toCur]}
-                    size={32}
-                    className="rounded-full border border-gray-200 dark:border-gray-600"
+                    size={36}
+                    className="rounded-full border-2 border-white/50 dark:border-gray-600/50 shadow-sm"
                   />
                 </motion.div>
               )}
             </div>
             <motion.span
-              className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100"
+              className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent"
               initial={{ x: -5 }}
               animate={{ x: 0 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              {`${converted || 0} ${toCur}`}
+              {converted ? `${converted} ${toCur}` : "0.00"}
             </motion.span>
           </div>
         </motion.div>

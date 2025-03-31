@@ -10,10 +10,6 @@
       <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DonationButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DonationButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PDFDocument.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PDFDocument.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SwapButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SwapButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,6 +120,7 @@
       <workItem from="1743326382179" duration="4988000" />
       <workItem from="1743331992372" duration="10906000" />
       <workItem from="1743364352895" duration="1837000" />
+      <workItem from="1743422994094" duration="1874000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />

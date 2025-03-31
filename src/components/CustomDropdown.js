@@ -52,7 +52,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide">
           {label}
         </label>
-        <Skeleton className="h-12" />
+        <Skeleton className="h-12 rounded-xl" />
       </div>
     );
   }
@@ -70,8 +70,11 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
 
       <motion.div
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 flex items-center justify-between cursor-pointer`}
-        whileHover={{ scale: 1.01 }}
+        className={`w-full px-4 py-3 border border-gray-200/70 dark:border-gray-700/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-transparent dark:bg-gray-800/80 dark:text-gray-100 flex items-center justify-between cursor-pointer backdrop-blur-sm`}
+        whileHover={{
+          scale: 1.01,
+          backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.7)' : 'rgba(255, 255, 255, 0.9)'
+        }}
         whileTap={{ scale: 0.99 }}
       >
         <div className="flex items-center gap-3">
@@ -101,13 +104,13 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
               stiffness: 500,
               damping: 30
             }}
-            className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden max-h-96 overflow-y-auto"
+            className="absolute z-20 mt-1 w-full bg-white/95 dark:bg-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-xl overflow-hidden max-h-96 overflow-y-auto backdrop-blur-lg"
           >
-            <div className="sticky top-0 p-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div className="sticky top-0 p-2 bg-white/95 dark:bg-gray-800/95 border-b border-gray-200/50 dark:border-gray-700/50">
               <motion.input
                 type="text"
                 placeholder="Search currency..."
-                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
+                className="w-full px-3 py-2 border border-gray-200/50 dark:border-gray-700/50 rounded-lg dark:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium backdrop-blur-sm"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
@@ -117,7 +120,7 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
               />
             </div>
 
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
               {filteredCurrencies.map(([code, countryCode]) => (
                 <motion.div
                   key={code}
@@ -128,10 +131,10 @@ export function CustomDropdown({ value, onChange, options, isLoading, label, isD
                     backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0)' : 'rgba(243, 244, 246, 0)'
                   }}
                   whileHover={{
-                    backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.5)' : 'rgba(243, 244, 246, 1)'
+                    backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 0.5)' : 'rgba(243, 244, 246, 0.9)'
                   }}
                   onClick={() => handleSelect(code)}
-                  className="flex items-center gap-3 px-4 py-3 cursor-pointer"
+                  className="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200"
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   {renderFlag(code)}

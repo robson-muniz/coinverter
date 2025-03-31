@@ -14,7 +14,7 @@ export function CurrencyInput({ value, onChange, isLoading }) {
       </motion.label>
 
       {isLoading ? (
-        <Skeleton className="h-12" />
+        <Skeleton className="h-12 rounded-xl" />
       ) : (
         <motion.input
           whileFocus={{
@@ -32,7 +32,7 @@ export function CurrencyInput({ value, onChange, isLoading }) {
           type="number"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-4 py-3 text-lg font-medium border border-gray-200 dark:border-gray-700 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+          className="w-full px-4 py-3 text-lg font-medium border border-gray-200/70 dark:border-gray-700/50 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-transparent dark:bg-gray-800/80 dark:text-gray-100 placeholder-gray-400/80 dark:placeholder-gray-500/80 backdrop-blur-sm"
           placeholder="0.00"
           min="0"
           step="any"
