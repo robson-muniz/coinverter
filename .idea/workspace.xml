@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Enhanced Currency Converter with Improved Aesthetics">
+    <list default="true" id="c11e83a0-d492-4c8e-9545-7d9dd40520f6" name="Changes" comment="Fixed minor errors like readability in dark mode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConvertedAmount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConvertedAmount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CurrencyInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrencyInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +115,8 @@
       <workItem from="1743326382179" duration="4988000" />
       <workItem from="1743331992372" duration="10906000" />
       <workItem from="1743364352895" duration="1837000" />
-      <workItem from="1743422994094" duration="3403000" />
+      <workItem from="1743422994094" duration="4659000" />
+      <workItem from="1743500832740" duration="888000" />
     </task>
     <task id="LOCAL-00001" summary="I organized the app in different file/components">
       <option name="closed" value="true" />
@@ -312,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743431167975</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Fixed minor errors like readability in dark mode">
+      <option name="closed" value="true" />
+      <created>1743434742839</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1743434742839</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,6 +346,7 @@
     <MESSAGE value="Fixed EUR button and also the currencyBackgroundImages" />
     <MESSAGE value="New minimalist style" />
     <MESSAGE value="Enhanced Currency Converter with Improved Aesthetics" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhanced Currency Converter with Improved Aesthetics" />
+    <MESSAGE value="Fixed minor errors like readability in dark mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed minor errors like readability in dark mode" />
   </component>
 </project>
