@@ -38,7 +38,7 @@ A simple and efficient currency converter built with React, allowing users to qu
 
 ## Usage
 
-- Access the application at `http://localhost:3000`.
+- Access the application at `https://coinverter.pt/`.
 - Select the currencies you want to convert.
 - Enter the amount to convert.
 - View the real-time conversion results.
