@@ -1,23 +1,33 @@
 # Coinverter
 
-A simple and efficient currency converter built with React, allowing users to quickly convert between different currencies with real-time exchange rates.
+[👉 Try it live at coinverter.pt](https://coinverter.pt/)
+
+A simple, lightweight, and efficient currency converter built with React. Coinverter lets you quickly switch between currencies using real-time exchange rates, all within a clean and responsive interface.
+
+---
 
 ## Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
+- [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
+---
+
 ## Features
 
-- Real-time currency conversion
-- Supports multiple currencies
-- User-friendly interface
-- Responsive design
+- ⚡ Real-time currency conversion  
+- 🌍 Supports multiple currencies  
+- 💻 User-friendly and intuitive interface  
+- 📱 Fully responsive design  
 
-## Installation
+---
+
+## Getting Started
+
+Follow these steps to run Coinverter locally:
 
 1. Clone the repository:
    ```bash
